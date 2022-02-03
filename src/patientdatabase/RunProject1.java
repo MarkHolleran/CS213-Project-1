@@ -15,4 +15,9 @@ public class RunProject1 {
     }
 }
 
+//required to generate javadoc after properly commented code
+//javadoc must include documentations for the constructors, private methods, and public methods of all java classes
+//generate the javadoc in a single folder "doc" and include it in the zip file to be submitted to canvas
+//double check after javadoc is generated to make sure descriptions are not empty
+
 
