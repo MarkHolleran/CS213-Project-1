@@ -2,7 +2,6 @@ package patientdatabase;
 
 import java.util.Calendar;
 
-
 //must implement the constructors & methods listed
 //implement the Comparable Interface and implement the compareTo() method
 
@@ -11,43 +10,160 @@ import java.util.Calendar;
 
 public class Date implements Comparable<Date> {
 
-private int year;
-private int month;
-private int day;
+    private int year;
+    private int month;
+    private int day;
 
-public Date(String data){ //take mm/dd/yyy and create date object
+//not sure if allowed to put these here
 
-    String dateToBeCreated = data;
+    public static final int DAYS_IN_APRIL = 30;
+    public static final int DAYS_IN_JUNE = 30;
+    public static final int DAYS_IN_SEPTEMBER = 30;
+    public static final int DAYS_IN_NOVEMBER = 30;
 
-    //"12/12/2011"
+    public static final int JANUARY = 1;
+    public static final int FEBUARY = 2;
+    public static final int MARCH = 3;
+    public static final int APRIL = 4;
+    public static final int MAY = 5;
+    public static final int JUNE = 6;
+    public static final int JULY = 7;
+    public static final int AUGUST = 8;
+    public static final int SEPTEMBER = 9;
+    public static final int OCTOBER = 10;
+    public static final int NOVEMBER = 11;
+    public static final int DECEMBER = 12;
 
-    this.month = Integer.parseInt(dateToBeCreated.substring(0,2));
-    this.day = Integer.parseInt(dateToBeCreated.substring(3,5));
-    this.year = Integer.parseInt(dateToBeCreated.substring(6,10));
+    public static final int MIN_YEAR = 1;
+    public static final int MAX_YEAR = 2022;
 
-}
+    public static final int MAX_MONTH = 12;
+    public static final int MIN_MONTH = 1;
+    public static final int DAYS_IN_FEBUARY_LEAP = 29;
+    public static final int DAYS_IN_FEBUARY_NONLEAP = 28;
+    public static final int MIN_DAY = 1;
+    public static final int MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER = 30;
+    public static final int MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY = 31;
 
-public Date()
 
-{
-    this.year = Calendar.YEAR;
-    this.month = Calendar.MONTH;
-    this.day = Calendar.DAY_OF_MONTH;
 
-} //create an obj with todays date
+    public Date(String data) { //take mm/dd/yyy and create date object
+
+        String dateFromInput = data;
+
+
+        if (dateFromInput.length() == 10) {
+
+            this.month = Integer.parseInt(dateFromInput.substring(0, 2));
+            this.day = Integer.parseInt(dateFromInput.substring(3, 5));
+            this.year = Integer.parseInt(dateFromInput.substring(6, 10));
+
+
+        }
+        if (dateFromInput.length() == 9) {
+
+            this.month = Integer.parseInt(dateFromInput.substring(0, 1));
+            this.day = Integer.parseInt(dateFromInput.substring(2, 4));
+            this.year = Integer.parseInt(dateFromInput.substring(5, 9));
+        }
+
+    }
+
+    public Date() {//creating a date object with today's date
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.MONTH, 1);
+        // added 1 because java thinks april is 3rd month of the year
+
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH);
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    }
 
     public boolean isValid() {
 
-    boolean monthValid;
+        boolean monthValid = false;
+        boolean yearValid = false;
+        boolean dayValid = false;
 
-    boolean yearValid;
+        Date currentYear = new Date();
 
-    return true;
+        if (year >= currentYear.year || year < MIN_YEAR) {
+
+            yearValid = false;
+
+        } else {
+
+            yearValid = true;
+
+        }
+
+        if (month > MAX_MONTH || month < MIN_YEAR) {     //if month is not 1-12 return falase
+
+            monthValid = false;
+
+        } else {
+
+            monthValid = true;
+
+        }
+        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY) {                 //months that all are 31 days in length
+
+            if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
+
+                dayValid = false;
+
+            } else {
+
+                dayValid = true;
+
+            }
+
+        } else if (month == APRIL || month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
+
+            if (day > MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER || day < MIN_DAY) {
+
+                dayValid = false;
+
+            } else {
+
+                dayValid = true;
+
+            }
+
+        } else if (month == FEBUARY) {
+
+            if (leapYearChecker() == false && day <= DAYS_IN_FEBUARY_NONLEAP && day >= MIN_DAY) {
+
+                dayValid = true;
+
+            } else if (leapYearChecker() == true && day <= DAYS_IN_FEBUARY_LEAP && day >= MIN_DAY) {
+
+                dayValid = true;
+
+            } else {
+
+                dayValid = false;
+
+            }
+
+        }
+
+        if (monthValid == true && yearValid == true && dayValid == true) {
+
+            return true;
+
+        } else {
+
+            return false;
+        }
     }
 
-    private boolean leapYearChecker (Date date){
+    private boolean leapYearChecker() {
 
-    int isYearValid = date.year;
+        int isYearValid = year;
 
         if (isYearValid % 4 == 0) {
 
@@ -64,17 +180,7 @@ public Date()
 
             } else {
 
-                if (isYearValid % 400 == 0) {
-
-                    return true;
-
-                } else {
-
-                    return false;
-                }
-
-                //return true;
-
+                return true;
 
             }
 
@@ -83,25 +189,10 @@ public Date()
             return false;
         }
 
-
-
     }
-    //checks if a date is a valid calendar date
-
-    //take into account: January, March,May, July, August, October, December each have 31 days
-    //April, June, September, and November each have 30 days
-    //February has 28 days in a non leap year and 29 days in a leap year
 
     //don't use magic numbers instead do like
     //public static final int EXAMPLE = 4;
-
-    //for determining if a leap year or not
-
-    //1. if year is evenly divided by 4 go to 2.  otherwise go to .5
-    //2. if year is evenly divided by 100 go to step 3.   otherwise go to 4.
-    //3. if year is even divided by 400 go to 4.   otherwise go to .5
-    //4. this year is a leap year
-    //5. this is not a leap year
 
     //must design test cases to thoroughly test the isValid() method
     //must write testbed main and implement the test cases
@@ -112,32 +203,70 @@ public Date()
     //please use "//" comments to identify the test case numbers in the testbed main
 
     @Override
-    public int compareTo(Date date){
+    public int compareTo(Date date) {
+        //return -1 1 or 0 based on date
+        int day = this.day;
+        int month = this.month;
+        int year = this.year;
 
-    return 0;
+        int dayCompare = date.day;
+        int monthCompare = date.month;
+        int yearCompare = date.year;
+
+        if (year > yearCompare) {
+            //if year is greater than parameter year
+            return 1;
+
+        } else if (year == yearCompare) {
+            //same year so check months
+            if (month > monthCompare) {
+
+                return 1;
+
+            } else if (month == monthCompare) {
+
+                if (day > dayCompare) {
+
+                    return 1;
+
+                } else if (day < dayCompare) {
+
+                    return -1;
+
+                } else if (day == dayCompare) {
+
+                    return 0;
+                }
+            } else if (month < monthCompare) {
+
+                return -1;
+            }
+
+            return -1;
+
+        } else if (year < yearCompare) {
+
+            return -1;
+
+        }
+
+        return 0;
+        //not sure what to put here so i just returned 0
     }
 
-    public static void main(String[] args){
 
+    public static void main (String[]args){
 
-    Date datetest = new Date();
+        Date datetest = new Date();
 
-    System.out.println("should be current date" + datetest.year);
-    
-        System.out.println("should be current date" + Calendar.YEAR);
-    System.out.println("the date we're trying to input is " + "12/12/2011" +datetest.toString());
+        Date inputdate = new Date("02/07/2022");
 
-    System.out.println("day is " + datetest.day);
-    System.out.println("month is " + datetest.month);
-    System.out.println("year is " + datetest.year);
-
-
-
+        System.out.println(datetest.compareTo(inputdate));
 
     }
-
-
-
 }
+
+
+
 
 
