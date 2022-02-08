@@ -14,9 +14,34 @@ public class Timeslot implements Comparable<Timeslot>{
     private Time time;
 
     @Override
-    public String toString() {}
+    public String toString() {
+        return "";
+    }
     @Override
-    public int compareTo(Timeslot slot){}
+    public int compareTo(Timeslot slot){
+        int dateDifference = this.date.year.compareTo(slot.date.year);
+        if (dateDifference != 0) {
+            return dateDifference;
+        }
+
+        dateDifference = this.date.month.compareTo(slot.date.month);
+        if (dateDifference != 0) {
+            return dateDifference;
+        }
+
+        dateDifference = this.date.day.compareTo(slot.date.day);
+        if (dateDifference != 0) {
+            return dateDifference;
+        }
+
+        int hourDifference = this.time.hour.compareTo(slot.time.hour);
+        if (hourDifference != 0) {
+            return hourDifference;
+        }
+
+        int minDifference = this.time.minute.compareTo(slot.time.minute);
+        return minDifference;
+    }
 
 
 }

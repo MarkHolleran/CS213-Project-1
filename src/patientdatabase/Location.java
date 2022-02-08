@@ -7,5 +7,18 @@ package patientdatabase;
 
 public enum Location {
 
+    SOMERSET ("Bridgewater", "08807"),
+    MIDDLESEX ("Piscataway", "08854"),
+    MERCER ("Princeton", "08542"),
+    MORRIS ("Morristown", "07960"),
+    UNION ("Union", "07083");
+
+    private final String city;
+    private final String zipcode;
+
+    Location (String city, String zipcode){
+        this.city = city;
+        this.zipcode = zipcode;
+    }
 
 }
