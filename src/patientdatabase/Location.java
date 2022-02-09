@@ -20,5 +20,4 @@ public enum Location {
         this.city = city;
         this.zipcode = zipcode;
     }
-
 }

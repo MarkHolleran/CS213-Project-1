@@ -6,8 +6,19 @@
     //cannot change or add instance variables and cannot use System.out statements
     public class Time implements Comparable<Time>{
 
+        public Time(int hour, int minute){
+
+        }
+
         private int hour;
         private int minute;
+
+        public int getHour(){
+            return hour;
+        }
+        public int getMinute(){
+            return minute;
+        }
 
         public boolean isValid(){
             if (hour < 9 || hour > 16 || minute % 15 != 0 || minute < 0 || minute > 45){
@@ -22,12 +33,12 @@
         }
         @Override
         public int compareTo(Time time){
-            int hourDifference = this.hour.compareTo(time.hour);
+            int hourDifference = Integer.compare(this.hour, time.hour);
             if (hourDifference != 0) {
                 return hourDifference;
             }
 
-            int minDifference = this.minute.compareTo(time.minute);
+            int minDifference = Integer.compare(this.minute, time.minute);
             return minDifference;
         }
 

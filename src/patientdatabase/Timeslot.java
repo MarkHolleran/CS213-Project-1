@@ -15,31 +15,32 @@ public class Timeslot implements Comparable<Timeslot>{
 
     @Override
     public String toString() {
-        return "";
+        return " Appointment detail: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + ", "
+                + time.getHour() + ":" + time.getMinute() + "," ;
     }
     @Override
     public int compareTo(Timeslot slot){
-        int dateDifference = this.date.year.compareTo(slot.date.year);
+        int dateDifference = Integer.compare(this.date.getYear(), slot.date.getYear());
         if (dateDifference != 0) {
             return dateDifference;
         }
 
-        dateDifference = this.date.month.compareTo(slot.date.month);
+        dateDifference = Integer.compare(this.date.getMonth(), slot.date.getMonth());
         if (dateDifference != 0) {
             return dateDifference;
         }
 
-        dateDifference = this.date.day.compareTo(slot.date.day);
+        dateDifference = Integer.compare(this.date.getYear(), slot.date.getYear());
         if (dateDifference != 0) {
             return dateDifference;
         }
 
-        int hourDifference = this.time.hour.compareTo(slot.time.hour);
+        int hourDifference = Integer.compare(this.time.getHour(), slot.time.getHour());
         if (hourDifference != 0) {
             return hourDifference;
         }
 
-        int minDifference = this.time.minute.compareTo(slot.time.minute);
+        int minDifference = Integer.compare(this.time.getMinute(), slot.time.getMinute());
         return minDifference;
     }
 
