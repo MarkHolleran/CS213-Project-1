@@ -45,6 +45,18 @@ public class Date implements Comparable<Date> {
     public static final int MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER = 30;
     public static final int MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY = 31;
 
+    public int getDay(){
+
+        return day;
+    }
+    public int getYear(){
+
+        return year;
+    }
+    public int getMonth(){
+
+        return month;
+    }
 
 
     public Date(String data) { //take mm/dd/yyy and create date object
