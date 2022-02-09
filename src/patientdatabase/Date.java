@@ -51,21 +51,9 @@ public class Date implements Comparable<Date> {
 
         String dateFromInput = data;
 
-
-        if (dateFromInput.length() == 10) {
-
-            this.month = Integer.parseInt(dateFromInput.substring(0, 2));
-            this.day = Integer.parseInt(dateFromInput.substring(3, 5));
-            this.year = Integer.parseInt(dateFromInput.substring(6, 10));
-
-
-        }
-        if (dateFromInput.length() == 9) {
-
-            this.month = Integer.parseInt(dateFromInput.substring(0, 1));
-            this.day = Integer.parseInt(dateFromInput.substring(2, 4));
-            this.year = Integer.parseInt(dateFromInput.substring(5, 9));
-        }
+        this.month = Integer.parseInt(dateFromInput.substring(0, dateFromInput.indexOf("/")));
+        this.day = Integer.parseInt(dateFromInput.substring(dateFromInput.indexOf("/")+1,dateFromInput.lastIndexOf("/")));
+        this.year = Integer.parseInt(dateFromInput.substring(dateFromInput.lastIndexOf("/")+1,dateFromInput.length()));
 
     }
 
@@ -259,7 +247,11 @@ public class Date implements Comparable<Date> {
 
         Date datetest = new Date();
 
-        Date inputdate = new Date("02/07/2022");
+        Date inputdate = new Date("12/31/1999");
+
+        System.out.println("day "+inputdate.day);
+        System.out.println("month "+ inputdate.month);
+        System.out.println("year "+inputdate.year);
 
         System.out.println(datetest.compareTo(inputdate));
 
