@@ -43,6 +43,4 @@ public class Timeslot implements Comparable<Timeslot>{
         int minDifference = Integer.compare(this.time.getMinute(), slot.time.getMinute());
         return minDifference;
     }
-
-
 }
