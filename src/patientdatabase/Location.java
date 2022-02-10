@@ -20,4 +20,9 @@ public enum Location {
         this.city = city;
         this.zipcode = zipcode;
     }
+
+    @Override
+    public int compareTo(Location loc){
+        return this.name().compareTo(loc.name());
+    }
 }

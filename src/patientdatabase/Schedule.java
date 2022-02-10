@@ -29,7 +29,9 @@ public class Schedule {
     private Appointment  [] appointments;
     private int numAppts;
 
-    private int find(Appointment apt){}
+    private int find(Appointment apt){
+
+    }
 
     //searches an appointment in the list and returns the index if found or returns -1 if not found
     //must define a constant indentifier "NOT_FOUND" for the value -1

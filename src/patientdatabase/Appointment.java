@@ -7,10 +7,12 @@ public class Appointment {
     private Location location;
 
     @Override
-    public boolean equals(Object obj)
-
-    {
-
+    public boolean equals(Appointment obj) {
+        if (this.slot.compareTo(obj.slot) == 0 && this.patient.compareTo(obj.patient) == 0
+                && this.location.compareTo(obj.location) == 0) {
+            return false;
+        }
+        return true;
     }
 
     public String toString()
