@@ -57,6 +57,10 @@ public class Date implements Comparable<Date> {
 
         return month;
     }
+    public String toString(){
+
+        return getMonth()+"/"+getDay()+"/"+getYear();
+    }
 
 
     public Date(String data) { //take mm/dd/yyy and create date object
