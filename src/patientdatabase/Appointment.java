@@ -9,15 +9,15 @@ public class Appointment {
     @Override
     public boolean equals(Object obj) {
         Appointment app = (Appointment) obj;
-        if (this.slot.compareTo(obj.slot) == 0 && this.patient.compareTo(obj.patient) == 0
-                && this.location.compareTo(obj.location) == 0) {
+        if (this.slot.compareTo(app.slot) == 0 && this.patient.compareTo(app.patient) == 0
+                && this.location.compareTo(app.location) == 0) {
             return false;
         }
         return true;
     }
 
     public String toString(){
-        return "";
+        return patient.toString() + slot.toString() + location.toString();
     }
 
     //cannot change or add instance variables for this class
