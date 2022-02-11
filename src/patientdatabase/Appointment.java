@@ -16,11 +16,8 @@ public class Appointment {
         return true;
     }
 
-    public String toString()
-    {
-
-
-
+    public String toString(){
+        return "";
     }
 
     //cannot change or add instance variables for this class
