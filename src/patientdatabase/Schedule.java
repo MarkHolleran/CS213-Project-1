@@ -2,6 +2,7 @@ package patientdatabase;
 
 public class Schedule {
 
+    public static final int NOT_FOUND = -1;
     //container class that implements an array based linear data structure
 
     //to hold the list of vaccination appointments
@@ -30,22 +31,79 @@ public class Schedule {
     private int numAppts;
 
     private int find(Appointment apt){
-
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].equals(apt)){
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     //searches an appointment in the list and returns the index if found or returns -1 if not found
     //must define a constant indentifier "NOT_FOUND" for the value -1
-    private void grow() {}
-    private boolean add(Appointment appt){}
-    public boolean remove(Appointment appt){}
+    private void grow() {
+        int resizedLength = appointments.length*4;
+        Appointment[] resizedArray = new Appointment[resizedLength];
+        for(int i = 0; i < numAppts-1; i++){
+            resizedArray[i] = appointments[i];
+        }
+        appointments = resizedArray;
+    }
+    private boolean add(Appointment appt){
+        if(find(appt) != NOT_FOUND){
+            return false;
+        }
+        if(numAppts >= appointments.length){
+            grow();
+        }
+        appointments[numAppts] = appt;
+
+        return true;
+    }
+    public boolean remove(Appointment appt){
+        if(find(appt) == NOT_FOUND){
+            return false;
+        }
+
+        int deleteIndex = find(appt);
+        int lastElement = numAppts-1;
+        for(int i = deleteIndex; i<lastElement; i++){
+            appointments[i] = appointments[i+1];
+        }
+        return true;
+    }
 
     //deletes an appointment from the schedule
     //maintains relative order of the appointments in the list after deletion
 
     //
-    public void print(){}
-    public void printByZip() {}
-    public void printByPatient() {}
+    public void print(){
+        for(int i = 0; i < numAppts-1; i++){
+            System.out.println(appointments[i].toString());
+        }
+    }
+    public void printByZip() {
+        int n = numAppts;
+        for (int i = 1; i < n; ++i) {
+            Appointment key = appointments[i];
+            int j = i - 1;
+
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j >= 0 && Integer.parseInt(appointments[j].getLocation().getZipcode())
+                    > Integer.parseInt(key.getLocation().getZipcode())){
+                //arr[j] > key;
+                appointments[j + 1] = appointments[j];
+                j = j - 1;
+            }
+            appointments[j + 1] = key;
+        }
+        print();
+    }
+    public void printByPatient() {
+        print();
+    }
 
 
 

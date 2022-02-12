@@ -16,6 +16,18 @@ public class Appointment {
         return true;
     }
 
+    public Patient getPatient(){
+        return patient;
+    }
+
+    public Timeslot getSlot(){
+        return slot;
+    }
+
+    public Location getLocation(){
+        return location;
+    }
+
     public String toString(){
         return patient.toString() + slot.toString() + location.toString();
     }

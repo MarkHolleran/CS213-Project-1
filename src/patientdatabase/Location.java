@@ -21,11 +21,17 @@ public enum Location {
         this.zipcode = zipcode;
     }
 
+    public String getCity(){
+        return city;
+    }
+
+    public String getZipcode(){
+        return zipcode;
+    }
+
     @Override
     public String toString(){
         return " " + this.city + " " + this.zipcode + ", " + this.name();
     }
-
-
 
 }
