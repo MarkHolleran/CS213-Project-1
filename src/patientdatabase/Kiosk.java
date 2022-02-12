@@ -20,20 +20,12 @@ public class Kiosk {
 
 
         public Boolean locationValid(String inputLocation){
-
             String inputLocationToUpper = inputLocation.toUpperCase();
-
             for (Location location : Location.values()){
-
-
                 if (location.name().toString().equals(inputLocation)){
-
                     return true;
-
                 }
-
             }
-
             return false;
 
         }
