@@ -52,7 +52,7 @@ public class Schedule {
         }
         appointments = resizedArray;
     }
-    private boolean add(Appointment appt){
+    public boolean add(Appointment appt){
         if(find(appt) != NOT_FOUND){
             return false;
         }
