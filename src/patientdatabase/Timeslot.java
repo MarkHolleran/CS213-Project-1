@@ -13,6 +13,13 @@ public class Timeslot implements Comparable<Timeslot>{
     private Date date;
     private Time time;
 
+    public Timeslot (Date date, Time time){
+
+        this.date = date;
+        this.time = time;
+
+    }
+
     public Date getDate() {
         return date;
     }
