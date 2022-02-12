@@ -12,9 +12,8 @@ public class Kiosk {
 
         String commandInput = input.nextLine().toUpperCase();
 
+
         while (!commandInput.equals("Q")){
-
-
 
             switch (commandInput){
 
@@ -23,16 +22,16 @@ public class Kiosk {
                 System.out.println("command C chosen");
                 //cancel appt and remove specified appt from schedule
                     //EX: C 8/31/1978 Jane Doe 7/19/2022 9:15 middlesex
-                break;
+                    break;
 
                 case "CP": commandInput = "CP";
+
                     System.out.println("command CP chosen");
 
                     //cancel all appts of a given patient & remove all appts for this appt from the shedule
 
                     //EX: CP 8/31/1978 Jane Doe
-
-                break;
+                    break;
 
                 case "P": commandInput = "P";
 
@@ -41,7 +40,7 @@ public class Kiosk {
                     //display all appts from schedule to console with the current order in the array
 
 
-                break;
+                    break;
 
                 case "PZ": commandInput = "PZ";
                     System.out.println("command PZ chosen");
@@ -49,7 +48,7 @@ public class Kiosk {
                     //display all appts in the schedule ordered by zipcode
                     //if two appts have same zipcode display the appt with the earlier timeslot first
 
-                break;
+                    break;
 
                 case "PP": commandInput = "PP";
 
@@ -62,30 +61,28 @@ public class Kiosk {
                     //for patients with multiple appointments, display appts based on their current order in the array
                     //the order of hte appointments for the same patient doesnt matter)
 
-                break;
+                    break;
                     //stops program execution and display 'kiosk session ended'
                 case "Q": commandInput = "Q";
 
                     System.out.println("command Q chosen");
 
+                    break;
 
+                default:
 
-                break;
+                    System.out.println("Invalid Command!");
+
+                    break;
             }
 
-            commandInput = input.nextLine().toLowerCase();
-
-
-
+            commandInput = input.nextLine().toUpperCase();
 
         }
+
         System.out.println("Kiosk session ended");
+
         System.exit(0);
-
-
-
-
-
 
     }
 
