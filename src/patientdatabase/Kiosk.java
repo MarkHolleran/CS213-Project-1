@@ -8,14 +8,23 @@ public class Kiosk {
 
         Scanner input = new Scanner(System.in);
 
+        Schedule schedule = new Schedule();
+
         System.out.println("Kiosk running. Ready to process transactions.");
 
         String commandInput = input.nextLine().toUpperCase();
-
+        //idk if we should make it upperCase
 
         while (!commandInput.equals("Q")){
 
             switch (commandInput){
+
+                case "B": commandInput = "B";
+
+                    System.out.println("command B chosen");
+                    //book an appt
+                    //EX: C 8/31/1978 Jane Doe 7/19/2022 9:15 middlesex
+                    break;
 
                 case "C": commandInput = "C";
 
@@ -36,32 +45,20 @@ public class Kiosk {
                 case "P": commandInput = "P";
 
                     System.out.println("command P chosen");
-
-                    //display all appts from schedule to console with the current order in the array
-
-
+                    schedule.print();
                     break;
 
                 case "PZ": commandInput = "PZ";
                     System.out.println("command PZ chosen");
-
-                    //display all appts in the schedule ordered by zipcode
-                    //if two appts have same zipcode display the appt with the earlier timeslot first
-
+                    schedule.printByZip();
                     break;
 
                 case "PP": commandInput = "PP";
 
                     System.out.println("command PP chosen");
-
-
-                    //display all apts in the schedule ordered by patients
-                    //sort by patients last name, then first names then date of birth
-
-                    //for patients with multiple appointments, display appts based on their current order in the array
-                    //the order of hte appointments for the same patient doesnt matter)
-
+                    schedule.printByPatient();
                     break;
+
                     //stops program execution and display 'kiosk session ended'
                 case "Q": commandInput = "Q";
 

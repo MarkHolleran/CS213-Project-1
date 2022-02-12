@@ -6,6 +6,7 @@
     //cannot change or add instance variables and cannot use System.out statements
     public class Time implements Comparable<Time>{
 
+        //do i use this??
         public Time(int hour, int minute){
 
         }
