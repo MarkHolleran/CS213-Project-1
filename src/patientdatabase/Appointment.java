@@ -7,19 +7,29 @@ public class Appointment {
     private Location location;
 
     @Override
-    public boolean equals(Appointment obj) {
-        if (this.slot.compareTo(obj.slot) == 0 && this.patient.compareTo(obj.patient) == 0
-                && this.location.compareTo(obj.location) == 0) {
+    public boolean equals(Object obj) {
+        Appointment app = (Appointment) obj;
+        if (this.slot.compareTo(app.slot) == 0 && this.patient.compareTo(app.patient) == 0
+                && this.location.compareTo(app.location) == 0) {
             return false;
         }
         return true;
     }
 
-    public String toString()
-    {
+    public Patient getPatient(){
+        return patient;
+    }
 
+    public Timeslot getSlot(){
+        return slot;
+    }
 
+    public Location getLocation(){
+        return location;
+    }
 
+    public String toString(){
+        return patient.toString() + slot.toString() + location.toString();
     }
 
     //cannot change or add instance variables for this class

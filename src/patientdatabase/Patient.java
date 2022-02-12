@@ -39,7 +39,7 @@ public class Patient implements Comparable<Patient>{
     @Override
     public String toString(){
 
-        return getFname() + " " + getLname() + " " + getDob();
+        return getFname() + " " + getLname() + ", DOB: " + getDob() + ",";
 
     }
     @Override

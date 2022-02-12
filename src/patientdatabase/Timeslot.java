@@ -13,6 +13,14 @@ public class Timeslot implements Comparable<Timeslot>{
     private Date date;
     private Time time;
 
+    public Date getDate() {
+        return date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         return " Appointment detail: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + ", "
@@ -43,6 +51,4 @@ public class Timeslot implements Comparable<Timeslot>{
         int minDifference = Integer.compare(this.time.getMinute(), slot.time.getMinute());
         return minDifference;
     }
-
-
 }
