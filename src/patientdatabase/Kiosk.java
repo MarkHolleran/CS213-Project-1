@@ -111,7 +111,6 @@ public class Kiosk {
         Date newAppointmentDate = new Date(appointmentDate);
         Date dateOfBirth = new Date(dob);
 
-        //have to do this one at some point
         Patient newPatient = new Patient(fName, lName, dateOfBirth);
         Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
         Location newLocation = findLocation(appointmentLocation);
@@ -135,7 +134,43 @@ public class Kiosk {
         }
     }
 
-    private void commandCP(StringTokenizer segmentedInput, Schedule schedule){}
+    private void commandCP(StringTokenizer segmentedInput, Schedule schedule){
+        String dob = segmentedInput.nextToken();
+        String fName = segmentedInput.nextToken();
+        String lName = segmentedInput.nextToken();
+        Date dateOfBirth = new Date(dob);
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+
+        if (schedule.findPatient(newPatient)) {
+            schedule.removeAll(newPatient);
+            //All appointments for Jane Doe, DOB: 8/31/1978 have been cancelled.
+            System.out.println("All appointments for " + newPatient.getFname() + " "
+                    + newPatient.getLname() + ", DOB: " + newPatient.getDob().toString()
+                    + " have been cancelled.");
+        } else {
+            System.out.println("Not cancelled, appointment does not exist.");
+        }
+    }
+
+    private void commandP(Schedule schedule){
+        System.out.println();
+        System.out.println("*list of appointments in the schedule*");
+        schedule.print();
+        System.out.println("*end of schedule*");
+        System.out.println();
+    }
+
+    private void commandPZ(Schedule schedule){
+        System.out.println();
+        System.out.println("*list of appointments by zip and time slot.");
+        schedule.printByZip();
+    }
+
+    private void commandPP(Schedule schedule){
+        System.out.println();
+        System.out.println("*list of appointments by patient.");
+        schedule.printByPatient();
+    }
     
     /**
      * Runs command line text based interface
@@ -156,17 +191,12 @@ public class Kiosk {
 
         while (!("Q").equals(commandInput)){
             if(!("").equals(commandInput)) {
-
                 StringTokenizer segmentedInput = new StringTokenizer(commandInput, " ");
-
                 switch (segmentedInput.nextToken()) {
-
                     case "B":
                         if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
                             try {
-
                             commandB(segmentedInput, schedule);
-
                             } catch (Exception e) {
                                 System.out.println("Invalid Command!");
                             }
@@ -176,42 +206,20 @@ public class Kiosk {
                         }
                         break;
                     case "C":
-                        commandInput = "C";
                         if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
                             try {
-
                                 commandC(segmentedInput, schedule);
-
                             } catch (Exception e) {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
-
                         } else {
                             System.out.println("Invalid Command!");
                         }
                         break;
                     case "CP":
-                        commandInput = "CP";
-
                         if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS) {
                             try {
-                                String dob = segmentedInput.nextToken();
-                                String fName = segmentedInput.nextToken();
-                                String lName = segmentedInput.nextToken();
-                                Date dateOfBirth = new Date(dob);
-                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
-
-                                if (schedule.findPatient(newPatient)) {
-                                    schedule.removeAll(newPatient);
-                                    //All appointments for Jane Doe, DOB: 8/31/1978 have been cancelled.
-                                    System.out.println("All appointments for " + newPatient.getFname() + " "
-                                            + newPatient.getLname() + ", DOB: " + newPatient.getDob().toString()
-                                            + " have been cancelled.");
-                                } else {
-                                    System.out.println("Not cancelled, appointment does not exist.");
-                                }
-
-
+                                commandCP(segmentedInput, schedule);
                             } catch (Exception e) {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
@@ -220,27 +228,15 @@ public class Kiosk {
                         }
                         break;
                     case "P":
-                        commandInput = "P";
-                        System.out.println();
-                        System.out.println("*list of appointments in the schedule*");
-                        schedule.print();
-                        System.out.println("*end of schedule*");
-                        System.out.println();
+                        commandP(schedule);
                         break;
                     case "PZ":
-                        commandInput = "PZ";
-                        System.out.println();
-                        System.out.println("*list of appointments by zip and time slot.");
-                        schedule.printByZip();
+                        commandPZ(schedule);
                         break;
                     case "PP":
-                        commandInput = "PP";
-                        System.out.println();
-                        System.out.println("*list of appointments by patient.");
-                        schedule.printByPatient();
+                        commandPP(schedule);
                         break;
                     case "Q":
-                        commandInput = "Q";
                         break;
                     default:
                         System.out.println("Invalid Command!");
