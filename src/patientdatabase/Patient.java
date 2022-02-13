@@ -31,15 +31,17 @@ public class Patient implements Comparable<Patient>{
 
         return lname;
     }
-    public String getDob(){
 
-        return dob.toString();
+    public Date getDob(){
+
+
+        return dob;
     }
 
     @Override
     public String toString(){
 
-        return getFname() + " " + getLname() + ", DOB: " + getDob() + ",";
+        return getFname() + " " + getLname() + ", DOB: " + getDob().toString() + ",";
 
     }
     @Override
