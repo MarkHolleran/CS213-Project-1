@@ -30,16 +30,11 @@ public class Kiosk {
         String inputLocationToUpper = inputLocation.toUpperCase();
 
         for (Location location : Location.values()){
-
             if (location.name().equals(inputLocation.toUpperCase())){
-
                 return true;
-
             }
         }
-
         return false;
-
     }
 
     /**
@@ -52,24 +47,56 @@ public class Kiosk {
      * @return Location of Appointent if it exists, null otherwise
      */
     public static Location findLocation(String inputLocation){
-
+        
         String inputLocationToUpper = inputLocation.toUpperCase();
 
         for (Location location : Location.values()){
-
             if (location.name().equals(inputLocation.toUpperCase())){
-
                 return location;
-
             }
-
         }
-
         return null;
-
     }
 
-    private void commandB(StringTokenizer segmentedInput, Schedule schedule){
+    private void tryCommandB(StringTokenizer segmentedInput, Schedule schedule){
+        if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
+            try {
+                executeCommandB(segmentedInput, schedule);
+            } catch (Exception e) {
+                System.out.println("Invalid Command!");
+            }
+
+        } else {
+            System.out.println("Invalid Command!");
+        }
+    }
+
+    private void tryCommandC(StringTokenizer segmentedInput, Schedule schedule){
+        if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
+            try {
+                executeCommandC(segmentedInput, schedule);
+            } catch (Exception e) {
+                System.out.println("Not cancelled, appointment does not exist.");
+            }
+        } else {
+            System.out.println("Invalid Command!");
+        }
+    }
+
+    private void tryCommandCP(StringTokenizer segmentedInput, Schedule schedule){
+        if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS) {
+            try {
+                executeCommandCP(segmentedInput, schedule);
+            } catch (Exception e) {
+                System.out.println("Not cancelled, appointment does not exist.");
+            }
+        } else {
+            System.out.println("Invalid Command!");
+        }
+    }
+
+
+    private void executeCommandB(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
@@ -99,7 +126,7 @@ public class Kiosk {
         }
     }
 
-    private void commandC(StringTokenizer segmentedInput, Schedule schedule){
+    private void executeCommandC(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
@@ -134,7 +161,7 @@ public class Kiosk {
         }
     }
 
-    private void commandCP(StringTokenizer segmentedInput, Schedule schedule){
+    private void executeCommandCP(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
         String lName = segmentedInput.nextToken();
@@ -152,7 +179,7 @@ public class Kiosk {
         }
     }
 
-    private void commandP(Schedule schedule){
+    private void executeCommandP(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments in the schedule*");
         schedule.print();
@@ -160,17 +187,47 @@ public class Kiosk {
         System.out.println();
     }
 
-    private void commandPZ(Schedule schedule){
+    private void executeCommandPZ(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments by zip and time slot.");
         schedule.printByZip();
     }
 
-    private void commandPP(Schedule schedule){
+    private void executeCommandPP(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments by patient.");
         schedule.printByPatient();
     }
+
+    private void parseCommands(StringTokenizer segmentedInput, Schedule schedule){
+        switch (segmentedInput.nextToken()) {
+            case "B":
+                tryCommandB(segmentedInput, schedule);
+                break;
+            case "C":
+                tryCommandC(segmentedInput, schedule);
+                break;
+            case "CP":
+                tryCommandCP(segmentedInput, schedule);
+                break;
+            case "P":
+                executeCommandP(schedule);
+                break;
+            case "PZ":
+                executeCommandPZ(schedule);
+                break;
+            case "PP":
+                executeCommandPP(schedule);
+                break;
+            case "Q":
+                break;
+            default:
+                System.out.println("Invalid Command!");
+                break;
+        }
+    }
+
+
     
     /**
      * Runs command line text based interface
@@ -182,74 +239,19 @@ public class Kiosk {
     public void run() {
 
         Scanner input = new Scanner(System.in);
-
         Schedule schedule = new Schedule();
-
         System.out.println("Kiosk running. Ready to process transactions.");
-
         String commandInput = input.nextLine();
 
         while (!("Q").equals(commandInput)){
             if(!("").equals(commandInput)) {
                 StringTokenizer segmentedInput = new StringTokenizer(commandInput, " ");
-                switch (segmentedInput.nextToken()) {
-                    case "B":
-                        if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
-                            try {
-                            commandB(segmentedInput, schedule);
-                            } catch (Exception e) {
-                                System.out.println("Invalid Command!");
-                            }
-
-                        } else {
-                            System.out.println("Invalid Command!");
-                        }
-                        break;
-                    case "C":
-                        if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
-                            try {
-                                commandC(segmentedInput, schedule);
-                            } catch (Exception e) {
-                                System.out.println("Not cancelled, appointment does not exist.");
-                            }
-                        } else {
-                            System.out.println("Invalid Command!");
-                        }
-                        break;
-                    case "CP":
-                        if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS) {
-                            try {
-                                commandCP(segmentedInput, schedule);
-                            } catch (Exception e) {
-                                System.out.println("Not cancelled, appointment does not exist.");
-                            }
-                        } else {
-                            System.out.println("Invalid Command!");
-                        }
-                        break;
-                    case "P":
-                        commandP(schedule);
-                        break;
-                    case "PZ":
-                        commandPZ(schedule);
-                        break;
-                    case "PP":
-                        commandPP(schedule);
-                        break;
-                    case "Q":
-                        break;
-                    default:
-                        System.out.println("Invalid Command!");
-                        break;
-                }
+                parseCommands(segmentedInput, schedule);
             }
             commandInput = input.nextLine();
         }
-
         System.out.println("Kiosk session ended.");
-
         System.exit(0);
-
     }
 
 }
