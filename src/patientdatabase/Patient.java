@@ -1,11 +1,13 @@
 package patientdatabase;
 
-//implement comparableinterface and implement the compareTo() method
 
-//cannot changeor add instance variables and cannot use System.out statments in this class
-
-//has date of birth here
+/**
+ * Class that stores fname, lname from String input,
+ * and a Date object  into a Patient object
+ * @author Mark Holleran,
+ */
 public class Patient implements Comparable<Patient>{
+
     private String fname;
     private String lname;
     private Date dob;
@@ -19,36 +21,62 @@ public class Patient implements Comparable<Patient>{
         //this.dob = dateofbirth;
         this.dob = dob;
 
-        //having dateofbirth as a string object as well as a date object for compareto method later
-
     }
 
     public String getFname(){
 
-        return fname;
+        return this.fname;
+
     }
 
+    /**
+     * Returns fName as String from a Patient object
+     *
+     * @return String value of lName
+     */
     public String getLname(){
 
-        return lname;
+        return this.lname;
+
     }
 
+    /**
+     * Returns Date object from a Patient object
+     *
+     * @return Date object of Patient object
+     */
     public Date getDob(){
 
 
-        return dob;
+        return this.dob;
+
     }
 
+    /**
+     * Converts Patient object to a String
+     * by returning fName, lName, and dob
+     * separated by a space as a String
+     *
+     * @return String representation of Patient object
+     */
     @Override
     public String toString(){
 
         return getFname() + " " + getLname() + ", DOB: " + getDob().toString() + ",";
 
     }
+
+    /**
+     * Compares a Patient object with another Patient object
+     * Compares fName, lName, and dob of both Patient objects
+     * Returns 0 if Patient objects are the same and -1 otherwise
+     *
+     * @param patient Patient object for comparison with anoher Patient object
+     *
+     * @return -1 or 0 based on result of comparison
+     */
     @Override
     public int compareTo(Patient patient){
-
-        //comparing two patients
 
         String fName = this.fname;
         String lName = this.lname;
@@ -60,8 +88,6 @@ public class Patient implements Comparable<Patient>{
 
         if (fName.equals(fNameCompare) == true && lname.equals(lNameCompare) == true && dob.compareTo(dobCompare) == 0){
 
-            //patients are the same..share fname lname and dob
-
             return 0;
 
         }else {
@@ -71,18 +97,4 @@ public class Patient implements Comparable<Patient>{
 
     }
 
-
-
-    public static void main (String[] args){
-
-        //Patient newpatient = new Patient("Mark","Holleran","4/21/1999");
-        //Patient newpatientcompare = new Patient("Mark","Holleran","4/21/1998");
-
-        //System.out.println(newpatient.toString());
-        //System.out.println(newpatient.compareTo(newpatientcompare));
-
-
-
-
-    }
 }

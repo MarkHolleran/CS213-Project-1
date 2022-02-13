@@ -65,4 +65,15 @@ public class Timeslot implements Comparable<Timeslot>{
         int minDifference = Integer.compare(this.time.getMinute(), slot.time.getMinute());
         return minDifference;
     }
+    //TEST BED MAIN
+    //used for testing the compareto method in the timeslot class
+    //this shit be 10 points too
+    public static void main(String[] args){
+
+
+
+
+
+
+    }
 }

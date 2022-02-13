@@ -2,19 +2,19 @@ package patientdatabase;
 
 import java.util.Calendar;
 
-//must implement the constructors & methods listed
-//implement the Comparable Interface and implement the compareTo() method
-
-//cannot change or add instance variable and CANNOT use System.out statments except in the testbed main()
-
+/**
+ * Class that stores date from String input
+ *
+ * String is broken down into MM DD YYYY components
+ * and stored in a Date object.
+ * @author Mark Holleran,
+ */
 
 public class Date implements Comparable<Date> {
 
     private int year;
     private int month;
     private int day;
-
-//not sure if allowed to put these here
 
     public static final int DAYS_IN_APRIL = 30;
     public static final int DAYS_IN_JUNE = 30;
@@ -45,27 +45,60 @@ public class Date implements Comparable<Date> {
     public static final int MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER = 30;
     public static final int MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY = 31;
 
+    /**
+     * Returns Day from Date object
+     *
+     * @return Integer value representing Day
+     */
     public int getDay(){
 
-        return day;
+        return this.day;
+
     }
+
+    /**
+     * Returns Year from Date object
+     *
+     * @return Integer value representing Year
+     */
     public int getYear(){
 
-        return year;
+        return this.year;
+
     }
+
+    /**
+     * Returns Month from Date object
+     *
+     * @return Integer value representing Month
+     */
     public int getMonth(){
 
-        return month;
+        return this.month;
+
     }
+
+    /**
+     * Returns Date object as a String
+     *
+     * @return String representation of Date object
+     */
     public String toString(){
 
         return getMonth()+"/"+getDay()+"/"+getYear();
+
     }
 
+    /**
+     * Creates a Date object given a String input
+     * MM DD & YYYY are chosen by using the .indexOf Parameter
+     * in the Java String class to split the String by "/"
+     *
+     * @param date String in the form of MM/DD/YYYY
+     */
+    public Date(String date) { //take mm/dd/yyy and create date object
 
-    public Date(String data) { //take mm/dd/yyy and create date object
-
-        String dateFromInput = data;
+        String dateFromInput = date;
 
         this.month = Integer.parseInt(dateFromInput.substring(0, dateFromInput.indexOf("/")));
         this.day = Integer.parseInt(dateFromInput.substring(dateFromInput.indexOf("/")+1,dateFromInput.lastIndexOf("/")));
@@ -73,12 +106,17 @@ public class Date implements Comparable<Date> {
 
     }
 
+    /**
+     * Creates a Date object with today's date
+     * Using Java's Calendar Library an instance of
+     * today's date is created.
+     */
+
     public Date() {//creating a date object with today's date
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.add(Calendar.MONTH, 1);
-        // added 1 because java thinks april is 3rd month of the year
+        calendar.add(Calendar.MONTH, 1); //One is added because Java's Calendar Library Makes January Month 0
 
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
@@ -86,6 +124,15 @@ public class Date implements Comparable<Date> {
 
     }
 
+    /**
+     * Checks Date object for correctness
+     * Month, Day, and Year are checked
+     * to see if the date is correct or not.
+     * Accounts for Months that have either 30 or 31
+     * days in a Month as well as if it's a Leap year.
+     *
+     * @return True or False based on Date validity
+     */
     public boolean isValid() {
 
         boolean monthValid = false;
@@ -95,6 +142,7 @@ public class Date implements Comparable<Date> {
         Date currentYear = new Date();
 
         if (year < MIN_YEAR || year > MAX_YEAR) {
+
             yearValid = false;
 
         } else {
@@ -112,7 +160,7 @@ public class Date implements Comparable<Date> {
             monthValid = true;
 
         }
-        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY || month == JANUARY) {                 //months that all are 31 days in length
+        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY || month == JANUARY) {
 
             if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
 
@@ -164,37 +212,59 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Checks if the year is a leap year or not.
+     * Only ran when the Month is Febuary
+     * to determine if Febuary should have 28 or 29
+     * days in a Month.
+     *
+     * @return True or false if Year is a leap year
+     */
     private boolean leapYearChecker() {
+
         int isYearValid = year;
+
         if (isYearValid % 4 == 0) {
+
             if (isYearValid % 100 == 0) {
+
                 if (isYearValid % 400 == 0) {
+
                     return true;
+
                 } else {
+
                     return false;
                 }
+
             } else {
+
                 return true;
             }
         } else {
+
             return false;
         }
     }
 
-    //don't use magic numbers instead do like
-    //public static final int EXAMPLE = 4;
 
-    //must design test cases to thoroughly test the isValid() method
-    //must write testbed main and implement the test cases
-
-    //follow the instructions in the 'test design' section of the project formatting PDF
-    //must write code to print out the test results to the console showing the test cases are passed or failed
-
-    //please use "//" comments to identify the test case numbers in the testbed main
-
+    /**
+     *Compares a Date object with another Date object
+     * Compares Month, Day, and Year of both Date objects
+     * Returns 1 if Date object's date is greater
+     * than the input Date's date,
+     * Returns -1 if Date object's date is less
+     * than the input Date's date, and
+     * Returns 0 if Both the Date object's date
+     * and the input Date's date are the same.
+     *
+     * @param date Date object for comparison with another Date object
+     *
+     * @return 1 -1 or 0 based on result of comparison
+     */
     @Override
     public int compareTo(Date date) {
-        //return -1 1 or 0 based on date
+
         int day = this.day;
         int month = this.month;
         int year = this.year;
@@ -204,11 +274,11 @@ public class Date implements Comparable<Date> {
         int yearCompare = date.year;
 
         if (year > yearCompare) {
-            //if year is greater than parameter year
+
             return 1;
 
         } else if (year == yearCompare) {
-            //same year so check months
+
             if (month > monthCompare) {
 
                 return 1;
@@ -241,11 +311,39 @@ public class Date implements Comparable<Date> {
         }
 
         return 0;
-        //not sure what to put here so i just returned 0
+
     }
+
+    /**
+     * Testbed Main for the testing of the isValid() method in this class
+     *
+     * @param args Command line arguments
+     */
 
 
     public static void main (String[]args){
+
+        //Test 1:
+
+        //Test 2
+
+        //Test 3
+
+        //Test 4
+
+        //Test 5
+
+        //Test 6
+
+        // Test 7
+
+        //must design test cases to thoroughly test the isValid() method
+        //must write testbed main and implement the test cases
+
+        //follow the instructions in the 'test design' section of the project formatting PDF
+        //must write code to print out the test results to the console showing the test cases are passed or failed
+
+        //please use "//" comments to identify the test case numbers in the testbed main
 
         Date datetest = new Date();
 
