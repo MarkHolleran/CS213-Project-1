@@ -59,145 +59,156 @@ public class Kiosk {
 
         Schedule listOfAppointments = new Schedule();
 
-        while (!commandInput.equals("Q")){
-            StringTokenizer segmentedInput = new StringTokenizer(commandInput," ");
-            switch (segmentedInput.nextToken()){
+        while (!("Q").equals(commandInput)){
+            if(!("").equals(commandInput)) {
 
-                case "B":
-                    if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS){
-                        try {
-                            String dob = segmentedInput.nextToken();
-                            String fName = segmentedInput.nextToken();
-                            String lName = segmentedInput.nextToken();
-                            String appointmentDate = segmentedInput.nextToken();
-                            String appointmentTime = segmentedInput.nextToken();
-                            String appointmentLocation = segmentedInput.nextToken();
+                StringTokenizer segmentedInput = new StringTokenizer(commandInput, " ");
 
-                            Time newAppointmentTime = new Time(appointmentTime);
-                            Date newAppointmentDate = new Date(appointmentDate);
-                            Date dateOfBirth = new Date(dob);
+                switch (segmentedInput.nextToken()) {
 
-                            //have to do this one at some point
-                            Patient newPatient = new Patient(fName,lName,dateOfBirth);
-                            Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
-                            Location newLocation = findLocation(appointmentLocation);
-                            if (!locationValid(appointmentLocation)){
-                                System.out.println("Invalid location!");
-                                break;
+                    case "B":
+                        if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
+                            try {
+
+                                String dob = segmentedInput.nextToken();
+                                String fName = segmentedInput.nextToken();
+                                String lName = segmentedInput.nextToken();
+                                String appointmentDate = segmentedInput.nextToken();
+                                String appointmentTime = segmentedInput.nextToken();
+                                String appointmentLocation = segmentedInput.nextToken();
+
+                                Time newAppointmentTime = new Time(appointmentTime);
+                                Date newAppointmentDate = new Date(appointmentDate);
+                                Date dateOfBirth = new Date(dob);
+
+                                //have to do this one at some point
+                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
+                                Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+                                Location newLocation = findLocation(appointmentLocation);
+                                if (!locationValid(appointmentLocation)) {
+                                    System.out.println("Invalid location!");
+                                    break;
+                                }
+                                Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+                                String message = schedule.isValid(newAppointment);
+                                if (message.equals("true")) {
+                                    System.out.println("Appointment booked and added to the schedule.");
+                                    schedule.add(newAppointment);
+                                } else {
+                                    System.out.println(message);
+                                }
+
+                            } catch (Exception e) {
+                                System.out.println("Invalid Command!");
                             }
-                            Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
 
-                            String message = schedule.isValid(newAppointment);
-                            if(message.equals("true")){
-                                System.out.println("Appointment booked and added to the schedule.");
-                                schedule.add(newAppointment);
-                            }else{
-                                System.out.println(message);
-                            }
-
-                        } catch (Exception e){
-                            System.out.println("Invalid Command!");
+                        } else {
+                            System.out.println("Insufficient input for command");
                         }
+                        break;
+                    case "C":
+                        commandInput = "C";
+                        if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
+                            try {
+                                String dob = segmentedInput.nextToken();
+                                String fName = segmentedInput.nextToken();
+                                String lName = segmentedInput.nextToken();
+                                String appointmentDate = segmentedInput.nextToken();
+                                String appointmentTime = segmentedInput.nextToken();
+                                String appointmentLocation = segmentedInput.nextToken();
 
-                    }else {
-                        System.out.println("Insufficient input for command");
-                    }
-                    break;
-                case "C": commandInput = "C";
-                    if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS){
-                        try {
-                            String dob = segmentedInput.nextToken();
-                            String fName = segmentedInput.nextToken();
-                            String lName = segmentedInput.nextToken();
-                            String appointmentDate = segmentedInput.nextToken();
-                            String appointmentTime = segmentedInput.nextToken();
-                            String appointmentLocation = segmentedInput.nextToken();
+                                Time newAppointmentTime = new Time(appointmentTime);
+                                Date newAppointmentDate = new Date(appointmentDate);
+                                Date dateOfBirth = new Date(dob);
 
-                            Time newAppointmentTime = new Time(appointmentTime);
-                            Date newAppointmentDate = new Date(appointmentDate);
-                            Date dateOfBirth = new Date(dob);
+                                //have to do this one at some point
+                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
+                                Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+                                Location newLocation = findLocation(appointmentLocation);
+                                if (!locationValid(appointmentLocation)) {
+                                    System.out.println("Invalid location!");
+                                    break;
+                                }
+                                Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
 
-                            //have to do this one at some point
-                            Patient newPatient = new Patient(fName,lName,dateOfBirth);
-                            Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
-                            Location newLocation = findLocation(appointmentLocation);
-                            if (!locationValid(appointmentLocation)){
-                                System.out.println("Invalid location!");
-                                break;
-                            }
-                            Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+                                if (schedule.findPatient(newPatient)) {
 
-                            if(schedule.findPatient(newPatient)){
+                                    if (schedule.findPatient(newPatient) && schedule.findApt(newAppointment)) {
+                                        System.out.println("Appointment cancelled.");
+                                        schedule.remove(newAppointment);
+                                    } else {
+                                        System.out.println("Not cancelled, appointment does not exist.");
+                                    }
 
-                                if(schedule.findPatient(newPatient) && schedule.findApt(newAppointment)){
-                                    System.out.println("Appointment cancelled.");
-                                    schedule.remove(newAppointment);
-                                }else{
+                                } else {
                                     System.out.println("Not cancelled, appointment does not exist.");
                                 }
 
-                            }else{
+                            } catch (Exception e) {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
 
-                        } catch (Exception e){
-                            System.out.println("Not cancelled, appointment does not exist.");
+                        } else {
+                            System.out.println("Insufficient input for command");
                         }
+                        break;
+                    case "CP":
+                        commandInput = "CP";
 
-                    }else {
-                        System.out.println("Insufficient input for command");
-                    }
-                    break;
-                case "CP": commandInput = "CP";
+                        if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS) {
+                            try {
+                                String dob = segmentedInput.nextToken();
+                                String fName = segmentedInput.nextToken();
+                                String lName = segmentedInput.nextToken();
+                                Date dateOfBirth = new Date(dob);
+                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
 
-                    if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS){
-                        try{
-                            String dob = segmentedInput.nextToken();
-                            String fName = segmentedInput.nextToken();
-                            String lName = segmentedInput.nextToken();
-                            Date dateOfBirth = new Date(dob);
-                            Patient newPatient = new Patient(fName,lName,dateOfBirth);
+                                if (schedule.findPatient(newPatient)) {
+                                    schedule.removeAll(newPatient);
+                                    //All appointments for Jane Doe, DOB: 8/31/1978 have been cancelled.
+                                    System.out.println("All appointments for " + newPatient.getFname() + " "
+                                            + newPatient.getLname() + ", DOB: " + newPatient.getDob().toString()
+                                            + " have been cancelled.");
+                                } else {
+                                    System.out.println("Not cancelled, appointment does not exist.");
+                                }
 
-                            if(schedule.findPatient(newPatient)){
-                                schedule.removeAll(newPatient);
-                                //All appointments for Jane Doe, DOB: 8/31/1978 have been cancelled.
-                                System.out.println("All appointments for "+newPatient.getFname() + " "
-                                        + newPatient.getLname() + ", DOB: " + newPatient.getDob().toString()
-                                        + " have been cancelled.");
-                            }else{
+
+                            } catch (Exception e) {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
-
-
-                        }catch (Exception e){
-                            System.out.println("Not cancelled, appointment does not exist.");
+                        } else {
+                            System.out.println("Insufficient input for command");
                         }
-                    }else{
-                        System.out.println("Insufficient input for command");
-                    }
-                    break;
-                case "P": commandInput = "P";
-                    System.out.println();
-                    System.out.println("*list of appointments in the schedule*");
-                    schedule.print();
-                    System.out.println("*end of schedule*");
-                    System.out.println();
-                    break;
-                case "PZ": commandInput = "PZ";
-                    System.out.println();
-                    System.out.println("*list of appointments by zip and time slot.");
-                    schedule.printByZip();
-                    break;
-                case "PP": commandInput = "PP";
-                    System.out.println();
-                    System.out.println("*list of appointments by patient.");
-                    schedule.printByPatient();
-                    break;
-                case "Q": commandInput = "Q";
-                    break;
-                default:
-                    System.out.println("Invalid Command!");
-                    break;
+                        break;
+                    case "P":
+                        commandInput = "P";
+                        System.out.println();
+                        System.out.println("*list of appointments in the schedule*");
+                        schedule.print();
+                        System.out.println("*end of schedule*");
+                        System.out.println();
+                        break;
+                    case "PZ":
+                        commandInput = "PZ";
+                        System.out.println();
+                        System.out.println("*list of appointments by zip and time slot.");
+                        schedule.printByZip();
+                        break;
+                    case "PP":
+                        commandInput = "PP";
+                        System.out.println();
+                        System.out.println("*list of appointments by patient.");
+                        schedule.printByPatient();
+                        break;
+                    case "Q":
+                        commandInput = "Q";
+                        break;
+                    default:
+                        System.out.println("Invalid Command!");
+                        break;
+                }
             }
             commandInput = input.nextLine();
         }
