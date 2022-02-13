@@ -86,8 +86,6 @@ public class Kiosk {
 
         String commandInput = input.nextLine();
 
-        Schedule listOfAppointments = new Schedule();
-
         while (!("Q").equals(commandInput)){
             if(!("").equals(commandInput)) {
 

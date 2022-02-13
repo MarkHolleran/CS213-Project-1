@@ -17,7 +17,7 @@ public class Time implements Comparable<Time>{
     /**
      * Creates a Time object given an input of two integers.
      *
-     * @param
+     * @param hour
      */
     public Time(int hour, int minute){
 
@@ -78,7 +78,7 @@ public class Time implements Comparable<Time>{
     /**
      * Returns Time object as a String
      * If the minute is 0, it simply adds an extra 0
-     * to compensate for format
+     * to compensate for format.
      *
      * @return String representation of Date object
      */
@@ -89,22 +89,21 @@ public class Time implements Comparable<Time>{
         }else{
             return hour + ":" + minute;
         }
-
     }
 
     /**
-     *Compares a Time object with another Time object
-     * Compares Hour and Minute of both Time objects
-     * Returns 1 if Time object's time is greater
-     * than the input Date's date,
-     * Returns -1 if Date object's date is less
-     * than the input Date's date, and
-     * Returns 0 if Both the Date object's date
-     * and the input Date's date are the same.
+     * Compares a Time object with another Time object
+     * Compares Hour and then the time of the Time object
+     * and inputted Time object.
+     * Returns 1 if the Time object is greater than the
+     * inputted time object.
+     * Returns -1 if the Time object is less than the
+     * inputted time object.
+     * Returns 0 if the both the Time objects are equal.
      *
-     * @param date Date object for comparison with another Date object
+     * @param time Time object for comparison with another Time object
      *
-     * @return 1 -1 or 0 based on result of comparison
+     * @return -1 0 or 1 based on result of comparison
      */
     @Override
     public int compareTo(Time time){
