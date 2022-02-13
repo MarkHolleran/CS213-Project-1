@@ -92,9 +92,9 @@ public class Date implements Comparable<Date> {
         boolean yearValid = false;
         boolean dayValid = false;
 
-        Date currentYear = new Date();
+        Date currentDate = new Date();
 
-        if (year >= currentYear.year || year < MIN_YEAR) {
+        if (year >= currentDate.year || year < MIN_YEAR) {
 
             yearValid = false;
 
@@ -164,6 +164,8 @@ public class Date implements Comparable<Date> {
             return false;
         }
     }
+
+
 
     private boolean leapYearChecker() {
 
@@ -258,16 +260,18 @@ public class Date implements Comparable<Date> {
         //not sure what to put here so i just returned 0
     }
 
-
+//TEST BED MAIN testing the isvalid for the date class
     public static void main (String[]args){
 
         Date datetest = new Date();
 
-        Date inputdate = new Date("12/31/1999");
+        Date inputdate = new Date("4/1/2022");
 
         System.out.println("day "+inputdate.day);
         System.out.println("month "+ inputdate.month);
         System.out.println("year "+inputdate.year);
+
+        System.out.println("is this date valid?" + inputdate.isValid());
 
         System.out.println(datetest.compareTo(inputdate));
 

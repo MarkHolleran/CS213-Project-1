@@ -17,8 +17,6 @@ public class Kiosk {
     public static final int CANCEL_SINGLE_APPT_NUM_ARGUMENTS = 3;
     public static final int CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS = 7 ;
 
-
-
         public Boolean locationValid(String inputLocation){
             String inputLocationToUpper = inputLocation.toUpperCase();
             for (Location location : Location.values()){
