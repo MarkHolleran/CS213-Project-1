@@ -34,7 +34,7 @@ public class Schedule {
     }
 
     private int find(Appointment apt){
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             if(appointments[i].equals(apt)){
                 return i;
             }
@@ -42,8 +42,17 @@ public class Schedule {
         return NOT_FOUND;
     }
 
+    public boolean findApt(Appointment apt){
+        for(int i = 0; i < numAppts; i++){
+            if(appointments[i].equals(apt)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean findPatient(Patient patient){
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             if(appointments[i].getPatient().compareTo(patient) == 0){
                 return true;
             }
@@ -56,7 +65,7 @@ public class Schedule {
     private void grow() {
         int resizedLength = appointments.length+4;
         Appointment[] resizedArray = new Appointment[resizedLength];
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             resizedArray[i] = appointments[i];
         }
         appointments = resizedArray;
@@ -87,14 +96,14 @@ public class Schedule {
             return "Same appointment exists in the schedule.";
         }
 
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             if(appointments[i].getLocation().equals(appt.getLocation())
                 && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
                 return "Time slot has been taken at this location";
             }
         }
         //7 still needs to be implemented with location
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             if(appointments[i].getSlot().getDate().compareTo(appt.getSlot().getDate()) == 0 &&
                 appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
                 return "Same patient cannot book an appointment with the same date.";
@@ -121,15 +130,17 @@ public class Schedule {
 
     public boolean removeAll(Patient patient){
 
-        for(int i = 0; i < numAppts-1; i++){
+        for(int i = 0; i < numAppts; i++){
             if(appointments[i].getPatient().compareTo(patient) == 0){
                 int deleteIndex = i;
-                int lastElement = numAppts-1;
+                int lastElement = numAppts;
                 for(int j = deleteIndex; j < lastElement; j++){
                     appointments[j] = appointments[j + 1];
+
                 }
                 appointments[lastElement] = null;
                 numAppts--;
+                i--;
             }
         }
         return true;
@@ -142,12 +153,9 @@ public class Schedule {
 
     //
     public void print(){
-        System.out.println("*list of appointments in the schedule*");
         for(int i = 0; i < numAppts; i++){
-
             System.out.println(this.appointments[i].toString());
         }
-        System.out.println("*end of schedule*");
     }
     public void printByZip() {
         int n = numAppts;
@@ -172,6 +180,8 @@ public class Schedule {
             appointments[j + 1] = key;
         }
         print();
+        System.out.println("*end of list.");
+        System.out.println();
     }
     public void printByPatient() {
         int n = numAppts;
@@ -200,6 +210,8 @@ public class Schedule {
             appointments[j + 1] = key;
         }
         print();
+        System.out.println("*end of list.");
+        System.out.println();
     }
 
 }

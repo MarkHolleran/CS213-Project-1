@@ -17,9 +17,9 @@ public class Appointment {
         Appointment app = (Appointment) obj;
         if (this.slot.compareTo(app.slot) == 0 && this.patient.compareTo(app.patient) == 0
                 && this.location.compareTo(app.location) == 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public Patient getPatient(){
