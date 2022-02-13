@@ -64,13 +64,46 @@ public class Schedule {
         return true;
     }
 
-    private boolean isValid(Appointment appt){
+    private String isValid(Appointment appt){
         if (!appt.getSlot().getDate().isValid()){
-            return false;
+            return "false";
         }
         //if(appt.getPatient().getDob())
         //need current/future date checker
-        return true;
+
+
+        /*
+5. An appointment with the same patient, timeslot and location is already in the schedule.
+6. The specified timeslot (same date and time) at the specified location has already been taken.
+7. The location with the county name is not a valid location.
+8. The user is booking an appointment with the same patient and date but a different location with an existing
+appointment.
+         */
+        //5
+        if(find(appt) != NOT_FOUND){
+            return "Same appointment exists in the schedule.";
+        }
+        //6
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getLocation().equals(appt.getLocation())
+                && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
+                return "Time slot has been taken at this location";
+            }
+        }
+        //7 might have to be done in Kiosk itself lol
+        /*
+        if(appt.getLocation()){
+            return false;
+        }
+        */
+        //8
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getSlot().getDate().compareTo(appt.getSlot().getDate()) == 0 &&
+                appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
+                return "Same patient cannot book an appointment with the same date.";
+            }
+        }
+        return "true";
     }
 
     public boolean remove(Appointment appt){
