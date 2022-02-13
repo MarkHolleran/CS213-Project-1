@@ -68,7 +68,7 @@ public class Kiosk {
         return null;
 
     }
-    
+
     /**
      * Runs command line text based interface
      *
@@ -85,6 +85,8 @@ public class Kiosk {
         System.out.println("Kiosk running. Ready to process transactions.");
 
         String commandInput = input.nextLine();
+
+        Schedule listOfAppointments = new Schedule();
 
         while (!("Q").equals(commandInput)){
             if(!("").equals(commandInput)) {

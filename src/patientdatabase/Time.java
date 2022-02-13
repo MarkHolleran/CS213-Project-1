@@ -17,7 +17,8 @@ public class Time implements Comparable<Time>{
     /**
      * Creates a Time object given an input of two integers.
      *
-     * @param hour
+     * @param hour int for hours
+     * @param minute int for minutes
      */
     public Time(int hour, int minute){
 
@@ -31,7 +32,7 @@ public class Time implements Comparable<Time>{
      * Hour & Month are chosen by parsing the String Parameter
      * with String Tokenizer and splitting by ":"
      *
-     * @param time String in the form of HH:MM
+     * @param inputTime String in the form of HH:MM
      */
     public Time(String inputTime){
 
@@ -66,7 +67,7 @@ public class Time implements Comparable<Time>{
      * Hour and Minute are checked to see if they are in between the opening
      * for the clinic and are of 15 minute intervals
      *
-     * @return True or False based on Time validity
+     * @return true or false based on Time validity
      */
     public boolean isValid(){
         if (hour < 9 || hour > 16 || minute % 15 != 0 || minute < 0 || minute > 45){
@@ -80,7 +81,7 @@ public class Time implements Comparable<Time>{
      * If the minute is 0, it simply adds an extra 0
      * to compensate for format.
      *
-     * @return String representation of Date object
+     * @return String representation of Time object
      */
     @Override
     public String toString(){
