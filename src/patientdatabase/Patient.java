@@ -1,10 +1,9 @@
 package patientdatabase;
 
-
 /**
  * Class that stores fname, lname from String input,
  * and a Date object  into a Patient object
- * @author Mark Holleran,
+ * @author Mark Holleran, Abhitej Bokka
  */
 public class Patient implements Comparable<Patient>{
 
@@ -12,17 +11,28 @@ public class Patient implements Comparable<Patient>{
     private String lname;
     private Date dob;
 
+    /**
+     * Creates a Patient object based on String input
+     * for First and Last name and Date of birth
+     * as a Date object
+     *
+     * @param fname First name of patient as String
+     * @param lname Last name of patient as String
+     * @param dob Date of birth of patient as Date object
+     */
     public Patient (String fname,String lname,Date dob) {
 
         this.fname = fname;
         this.lname = lname;
-        //String dateOfBirthString = dob;
-        //Date dateofbirth = new Date(dateOfBirthString);
-        //this.dob = dateofbirth;
         this.dob = dob;
 
     }
 
+    /**
+     * Returns lName as String from a patient object
+     *
+     * @return String value of fName
+     */
     public String getFname(){
 
         return this.fname;

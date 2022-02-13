@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  * String is broken down into MM DD YYYY components
  * and stored in a Date object.
- * @author Mark Holleran,
+ * @author Mark Holleran, Abhitej Bokka
  */
 
 public class Date implements Comparable<Date> {
@@ -44,6 +44,40 @@ public class Date implements Comparable<Date> {
     public static final int MIN_DAY = 1;
     public static final int MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER = 30;
     public static final int MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY = 31;
+
+    /**
+     * Creates a Date object with today's date
+     * Using Java's Calendar Library an instance of
+     * today's date is created.
+     */
+    public Date() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.MONTH, 1); //One is added because Java's Calendar Library Makes January Month 0
+
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH);
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    }
+
+    /**
+     * Creates a Date object given a String input
+     * MM DD & YYYY are chosen by using the .indexOf Parameter
+     * in the Java String class to split the String by "/"
+     *
+     * @param date String in the form of MM/DD/YYYY
+     */
+    public Date(String date) { //take mm/dd/yyy and create date object
+
+        String dateFromInput = date;
+
+        this.month = Integer.parseInt(dateFromInput.substring(0, dateFromInput.indexOf("/")));
+        this.day = Integer.parseInt(dateFromInput.substring(dateFromInput.indexOf("/")+1,dateFromInput.lastIndexOf("/")));
+        this.year = Integer.parseInt(dateFromInput.substring(dateFromInput.lastIndexOf("/")+1,dateFromInput.length()));
+
+    }
 
     /**
      * Returns Day from Date object
@@ -86,41 +120,6 @@ public class Date implements Comparable<Date> {
     public String toString(){
 
         return getMonth()+"/"+getDay()+"/"+getYear();
-
-    }
-
-    /**
-     * Creates a Date object given a String input
-     * MM DD & YYYY are chosen by using the .indexOf Parameter
-     * in the Java String class to split the String by "/"
-     *
-     * @param date String in the form of MM/DD/YYYY
-     */
-    public Date(String date) { //take mm/dd/yyy and create date object
-
-        String dateFromInput = date;
-
-        this.month = Integer.parseInt(dateFromInput.substring(0, dateFromInput.indexOf("/")));
-        this.day = Integer.parseInt(dateFromInput.substring(dateFromInput.indexOf("/")+1,dateFromInput.lastIndexOf("/")));
-        this.year = Integer.parseInt(dateFromInput.substring(dateFromInput.lastIndexOf("/")+1,dateFromInput.length()));
-
-    }
-
-    /**
-     * Creates a Date object with today's date
-     * Using Java's Calendar Library an instance of
-     * today's date is created.
-     */
-
-    public Date() {//creating a date object with today's date
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.add(Calendar.MONTH, 1); //One is added because Java's Calendar Library Makes January Month 0
-
-        this.year = calendar.get(Calendar.YEAR);
-        this.month = calendar.get(Calendar.MONTH);
-        this.day = calendar.get(Calendar.DAY_OF_MONTH);
 
     }
 
@@ -247,7 +246,6 @@ public class Date implements Comparable<Date> {
         }
     }
 
-
     /**
      *Compares a Date object with another Date object
      * Compares Month, Day, and Year of both Date objects
@@ -319,8 +317,6 @@ public class Date implements Comparable<Date> {
      *
      * @param args Command line arguments
      */
-
-
     public static void main (String[]args){
 
         //Test 1:
