@@ -68,6 +68,74 @@ public class Kiosk {
         return null;
 
     }
+
+    private void commandB(StringTokenizer segmentedInput, Schedule schedule){
+        String dob = segmentedInput.nextToken();
+        String fName = segmentedInput.nextToken();
+        String lName = segmentedInput.nextToken();
+        String appointmentDate = segmentedInput.nextToken();
+        String appointmentTime = segmentedInput.nextToken();
+        String appointmentLocation = segmentedInput.nextToken();
+
+        Time newAppointmentTime = new Time(appointmentTime);
+        Date newAppointmentDate = new Date(appointmentDate);
+        Date dateOfBirth = new Date(dob);
+
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+        Location newLocation = findLocation(appointmentLocation);
+        if (!locationValid(appointmentLocation)) {
+            System.out.println("Invalid location!");
+            return;
+        }
+        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+        String message = schedule.isValid(newAppointment);
+        if (message.equals("true")) {
+            System.out.println("Appointment booked and added to the schedule.");
+            schedule.add(newAppointment);
+        } else {
+            System.out.println(message);
+        }
+    }
+
+    private void commandC(StringTokenizer segmentedInput, Schedule schedule){
+        String dob = segmentedInput.nextToken();
+        String fName = segmentedInput.nextToken();
+        String lName = segmentedInput.nextToken();
+        String appointmentDate = segmentedInput.nextToken();
+        String appointmentTime = segmentedInput.nextToken();
+        String appointmentLocation = segmentedInput.nextToken();
+
+        Time newAppointmentTime = new Time(appointmentTime);
+        Date newAppointmentDate = new Date(appointmentDate);
+        Date dateOfBirth = new Date(dob);
+
+        //have to do this one at some point
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+        Location newLocation = findLocation(appointmentLocation);
+        if (!locationValid(appointmentLocation)) {
+            System.out.println("Invalid location!");
+            return;
+        }
+        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+        if (schedule.findPatient(newPatient)) {
+
+            if (schedule.findPatient(newPatient) && schedule.findApt(newAppointment)) {
+                System.out.println("Appointment cancelled.");
+                schedule.remove(newAppointment);
+            } else {
+                System.out.println("Not cancelled, appointment does not exist.");
+            }
+
+        } else {
+            System.out.println("Not cancelled, appointment does not exist.");
+        }
+    }
+
+    private void commandCP(StringTokenizer segmentedInput, Schedule schedule){}
     
     /**
      * Runs command line text based interface
@@ -97,87 +165,29 @@ public class Kiosk {
                         if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
                             try {
 
-                                String dob = segmentedInput.nextToken();
-                                String fName = segmentedInput.nextToken();
-                                String lName = segmentedInput.nextToken();
-                                String appointmentDate = segmentedInput.nextToken();
-                                String appointmentTime = segmentedInput.nextToken();
-                                String appointmentLocation = segmentedInput.nextToken();
-
-                                Time newAppointmentTime = new Time(appointmentTime);
-                                Date newAppointmentDate = new Date(appointmentDate);
-                                Date dateOfBirth = new Date(dob);
-
-                                //have to do this one at some point
-                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
-                                Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
-                                Location newLocation = findLocation(appointmentLocation);
-                                if (!locationValid(appointmentLocation)) {
-                                    System.out.println("Invalid location!");
-                                    break;
-                                }
-                                Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
-
-                                String message = schedule.isValid(newAppointment);
-                                if (message.equals("true")) {
-                                    System.out.println("Appointment booked and added to the schedule.");
-                                    schedule.add(newAppointment);
-                                } else {
-                                    System.out.println(message);
-                                }
+                            commandB(segmentedInput, schedule);
 
                             } catch (Exception e) {
                                 System.out.println("Invalid Command!");
                             }
 
                         } else {
-                            System.out.println("Insufficient input for command");
+                            System.out.println("Invalid Command!");
                         }
                         break;
                     case "C":
                         commandInput = "C";
                         if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
                             try {
-                                String dob = segmentedInput.nextToken();
-                                String fName = segmentedInput.nextToken();
-                                String lName = segmentedInput.nextToken();
-                                String appointmentDate = segmentedInput.nextToken();
-                                String appointmentTime = segmentedInput.nextToken();
-                                String appointmentLocation = segmentedInput.nextToken();
 
-                                Time newAppointmentTime = new Time(appointmentTime);
-                                Date newAppointmentDate = new Date(appointmentDate);
-                                Date dateOfBirth = new Date(dob);
-
-                                //have to do this one at some point
-                                Patient newPatient = new Patient(fName, lName, dateOfBirth);
-                                Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
-                                Location newLocation = findLocation(appointmentLocation);
-                                if (!locationValid(appointmentLocation)) {
-                                    System.out.println("Invalid location!");
-                                    break;
-                                }
-                                Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
-
-                                if (schedule.findPatient(newPatient)) {
-
-                                    if (schedule.findPatient(newPatient) && schedule.findApt(newAppointment)) {
-                                        System.out.println("Appointment cancelled.");
-                                        schedule.remove(newAppointment);
-                                    } else {
-                                        System.out.println("Not cancelled, appointment does not exist.");
-                                    }
-
-                                } else {
-                                    System.out.println("Not cancelled, appointment does not exist.");
-                                }
+                                commandC(segmentedInput, schedule);
 
                             } catch (Exception e) {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
 
                         } else {
-                            System.out.println("Insufficient input for command");
+                            System.out.println("Invalid Command!");
                         }
                         break;
                     case "CP":
@@ -206,7 +216,7 @@ public class Kiosk {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
                         } else {
-                            System.out.println("Insufficient input for command");
+                            System.out.println("Invalid Command!");
                         }
                         break;
                     case "P":
