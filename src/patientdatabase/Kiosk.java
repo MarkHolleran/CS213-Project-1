@@ -44,7 +44,7 @@ public class Kiosk {
      *
      * @param inputLocation County of Appointment as a String
      *
-     * @return Location of Appointent if it exists, null otherwise
+     * @return Location of Appointment if it exists, null otherwise
      */
     public static Location findLocation(String inputLocation){
 
@@ -58,28 +58,13 @@ public class Kiosk {
         return null;
     }
 
-    private void createAppointment(StringTokenizer segmentedInput, Schedule schedule){
-        String dob = segmentedInput.nextToken();
-        String fName = segmentedInput.nextToken();
-        String lName = segmentedInput.nextToken();
-        String appointmentDate = segmentedInput.nextToken();
-        String appointmentTime = segmentedInput.nextToken();
-        String appointmentLocation = segmentedInput.nextToken();
-
-        Time newAppointmentTime = new Time(appointmentTime);
-        Date newAppointmentDate = new Date(appointmentDate);
-        Date dateOfBirth = new Date(dob);
-
-        Patient newPatient = new Patient(fName, lName, dateOfBirth);
-        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
-        Location newLocation = findLocation(appointmentLocation);
-        if (!locationValid(appointmentLocation)) {
-            System.out.println("Invalid location!");
-            return;
-        }
-        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
-    }
-
+    /**
+     * Attempts to insert an Appointment and will print error message if unable to.
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     *
+     */
     private void tryCommandB(StringTokenizer segmentedInput, Schedule schedule){
         if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
             try {
@@ -93,6 +78,13 @@ public class Kiosk {
         }
     }
 
+    /**
+     * Attempts to delete an Appointment and will print error message if unable to.
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     *
+     */
     private void tryCommandC(StringTokenizer segmentedInput, Schedule schedule){
         if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
             try {
