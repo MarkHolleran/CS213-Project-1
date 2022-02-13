@@ -95,6 +95,7 @@ public class Date implements Comparable<Date> {
         Date currentYear = new Date();
 
         if (year < MIN_YEAR || year > MAX_YEAR) {
+            //if the year is less the min year or the year is greater than the max year
             yearValid = false;
 
         } else {
@@ -103,17 +104,23 @@ public class Date implements Comparable<Date> {
 
         }
 
-        if (month > MAX_MONTH || month < MIN_YEAR) {     //if month is not 1-12 return falase
+        if (month > MAX_MONTH || month < MIN_MONTH) {     //if month is not 1-12 return falase
+            //if month is greater than the max month or month is
 
             monthValid = false;
 
         } else {
 
+            System.out.println("month valid");
+
             monthValid = true;
 
         }
+
+        System.out.println(month + "is");
         if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY) {                 //months that all are 31 days in length
 
+            System.out.println("shouldnt be here");
             if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
 
                 dayValid = false;
@@ -127,10 +134,13 @@ public class Date implements Comparable<Date> {
         } else if (month == APRIL || month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
 
             if (day > MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER || day < MIN_DAY) {
+                //if month has 31 days so if the day is more than 31
 
                 dayValid = false;
 
             } else {
+
+                System.out.println("day valid");
 
                 dayValid = true;
 
