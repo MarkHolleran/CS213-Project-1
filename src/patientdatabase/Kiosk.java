@@ -7,9 +7,8 @@ import java.util.StringTokenizer;
  * Class that provides a text based interface
  * that takes command line arguments from the client
  *
- * @author Mark Holleran,
+ * @author Mark Holleran, Abhitej Bokka
  */
-
 
 public class Kiosk {
 
@@ -17,34 +16,66 @@ public class Kiosk {
     public static final int CANCEL_SINGLE_APPT_NUM_ARGUMENTS = 6;
     public static final int CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS = 3 ;
 
+    /**
+     * Compares Location String input against all locations in Location enum class
+     * If String input matches one of the Counties in the enum class return true
+     * otherwise return false.
+     *
+     * @param inputLocation County of appointment as a String
+     *
+     * @return True or False based on Location validity
+     */
     public static Boolean locationValid(String inputLocation){
+
         String inputLocationToUpper = inputLocation.toUpperCase();
+
         for (Location location : Location.values()){
+
             if (location.name().equals(inputLocation.toUpperCase())){
+
                 return true;
+
             }
         }
+
         return false;
+
     }
-
-    public static Location findLocation(String inputLocation){
-        String inputLocationToUpper = inputLocation.toUpperCase();
-        for (Location location : Location.values()){
-            if (location.name().equals(inputLocation.toUpperCase())){
-                return location;
-            }
-        }
-        return null;
-    }
-
-
 
     /**
-     * Runs command line text based interface
-     * allows input
+     *Compares Location String input against all locations in Location enum class
+     * IF string input matches one of the Counties in the enum class return the Location
+     * otherwise return null
      *
+     * @param inputLocation County of Appointment as a String
+     *
+     * @return Location of Appointent if it exists, null otherwise
      */
+    public static Location findLocation(String inputLocation){
 
+        String inputLocationToUpper = inputLocation.toUpperCase();
+
+        for (Location location : Location.values()){
+
+            if (location.name().equals(inputLocation.toUpperCase())){
+
+                return location;
+
+            }
+
+        }
+
+        return null;
+
+    }
+    
+    /**
+     * Runs command line text based interface
+     *
+     * Allows for Appointment scheduling, Cancellation of an Appointment or multiple,
+     * print all scheduled Appointments, print all scheduled Appointments ordered by Zipcode,
+     * print all scheduled Appointments by Patient name, and quit command.
+     */
     public void run() {
 
         Scanner input = new Scanner(System.in);
