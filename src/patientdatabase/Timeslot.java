@@ -65,10 +65,31 @@ public class Timeslot implements Comparable<Timeslot>{
         int minDifference = Integer.compare(this.time.getMinute(), slot.time.getMinute());
         return minDifference;
     }
+
+
     //TEST BED MAIN
     //used for testing the compareto method in the timeslot class
     //this shit be 10 points too
     public static void main(String[] args){
+
+
+        //Test 1: 28 days in february when non leapyear
+        System.out.println("test 12");
+        Date test12 = new Date("2/29/2021");
+        if (test12.isValid()) System.out.println("test 12 failed");
+        else System.out.println("test 12 passed");
+
+        //Test 2:
+        //Test 3:
+        //Test 4:
+        //Test 5:
+        //Test 6:
+        //Test 7:
+        //Test 8:
+        //Test 9:
+        //Test 10:
+        //Test 11:
+
 
 
 
