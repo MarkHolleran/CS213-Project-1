@@ -13,9 +13,9 @@ import java.util.StringTokenizer;
 
 public class Kiosk {
 
-    public static final int BOOK_PATIENT_APPT_NUM_ARGUMENTS = 7 ;
-    public static final int CANCEL_SINGLE_APPT_NUM_ARGUMENTS = 7;
-    public static final int CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS = 4 ;
+    public static final int BOOK_PATIENT_APPT_NUM_ARGUMENTS = 6 ;
+    public static final int CANCEL_SINGLE_APPT_NUM_ARGUMENTS = 6;
+    public static final int CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS = 3 ;
 
 
 
@@ -158,7 +158,7 @@ public class Kiosk {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
 
-                            break;
+
                         }catch (Exception e){
                             System.out.println("Not cancelled, appointment does not exist.");
                         }
