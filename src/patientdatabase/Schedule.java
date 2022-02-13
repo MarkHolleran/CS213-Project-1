@@ -142,9 +142,12 @@ public class Schedule {
 
     //
     public void print(){
-        for(int i = 0; i < numAppts-1; i++){
-            System.out.println(appointments[i].toString());
+        System.out.println("*list of appointments in the schedule*");
+        for(int i = 0; i < numAppts; i++){
+
+            System.out.println(this.appointments[i].toString());
         }
+        System.out.println("*end of schedule*");
     }
     public void printByZip() {
         int n = numAppts;

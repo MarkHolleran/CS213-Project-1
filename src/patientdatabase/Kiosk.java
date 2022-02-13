@@ -158,7 +158,7 @@ public class Kiosk {
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
 
-                            break;
+
                         }catch (Exception e){
                             System.out.println("Not cancelled, appointment does not exist.");
                         }
