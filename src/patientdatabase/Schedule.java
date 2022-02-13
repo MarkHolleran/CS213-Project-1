@@ -42,6 +42,15 @@ public class Schedule {
         return NOT_FOUND;
     }
 
+    public boolean findPatient(Patient patient){
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getPatient().compareTo(patient) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //searches an appointment in the list and returns the index if found or returns -1 if not found
     //must define a constant indentifier "NOT_FOUND" for the value -1
     private void grow() {
@@ -110,10 +119,10 @@ public class Schedule {
         return true;
     }
 
-    public boolean removeAll(Appointment appt){
+    public boolean removeAll(Patient patient){
 
         for(int i = 0; i < numAppts-1; i++){
-            if(appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
+            if(appointments[i].getPatient().compareTo(patient) == 0){
                 int deleteIndex = i;
                 int lastElement = numAppts-1;
                 for(int j = deleteIndex; j < lastElement; j++){

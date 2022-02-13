@@ -10,13 +10,14 @@ public class Patient implements Comparable<Patient>{
     private String lname;
     private Date dob;
 
-    public Patient (String fname,String lname,String dob) {
+    public Patient (String fname,String lname,Date dob) {
 
         this.fname = fname;
         this.lname = lname;
-        String dateOfBirthString = dob;
-        Date dateofbirth = new Date(dateOfBirthString);
-        this.dob = dateofbirth;
+        //String dateOfBirthString = dob;
+        //Date dateofbirth = new Date(dateOfBirthString);
+        //this.dob = dateofbirth;
+        this.dob = dob;
 
         //having dateofbirth as a string object as well as a date object for compareto method later
 
@@ -74,11 +75,11 @@ public class Patient implements Comparable<Patient>{
 
     public static void main (String[] args){
 
-        Patient newpatient = new Patient("Mark","Holleran","4/21/1999");
-        Patient newpatientcompare = new Patient("Mark","Holleran","4/21/1998");
+        //Patient newpatient = new Patient("Mark","Holleran","4/21/1999");
+        //Patient newpatientcompare = new Patient("Mark","Holleran","4/21/1998");
 
-        System.out.println(newpatient.toString());
-        System.out.println(newpatient.compareTo(newpatientcompare));
+        //System.out.println(newpatient.toString());
+        //System.out.println(newpatient.compareTo(newpatientcompare));
 
 
 
