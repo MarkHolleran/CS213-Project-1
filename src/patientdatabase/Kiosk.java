@@ -47,7 +47,7 @@ public class Kiosk {
      * @return Location of Appointent if it exists, null otherwise
      */
     public static Location findLocation(String inputLocation){
-        
+
         String inputLocationToUpper = inputLocation.toUpperCase();
 
         for (Location location : Location.values()){
@@ -56,6 +56,28 @@ public class Kiosk {
             }
         }
         return null;
+    }
+
+    private void createAppointment(StringTokenizer segmentedInput, Schedule schedule){
+        String dob = segmentedInput.nextToken();
+        String fName = segmentedInput.nextToken();
+        String lName = segmentedInput.nextToken();
+        String appointmentDate = segmentedInput.nextToken();
+        String appointmentTime = segmentedInput.nextToken();
+        String appointmentLocation = segmentedInput.nextToken();
+
+        Time newAppointmentTime = new Time(appointmentTime);
+        Date newAppointmentDate = new Date(appointmentDate);
+        Date dateOfBirth = new Date(dob);
+
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+        Location newLocation = findLocation(appointmentLocation);
+        if (!locationValid(appointmentLocation)) {
+            System.out.println("Invalid location!");
+            return;
+        }
+        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
     }
 
     private void tryCommandB(StringTokenizer segmentedInput, Schedule schedule){
@@ -95,6 +117,19 @@ public class Kiosk {
         }
     }
 
+    private Appointment createAppointment(String dob, String fName, String lName, String appointmentDate,
+                                          String appointmentTime, String appointmentLocation, Location newLocation){
+        Time newAppointmentTime = new Time(appointmentTime);
+        Date newAppointmentDate = new Date(appointmentDate);
+        Date dateOfBirth = new Date(dob);
+
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+
+        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+        return newAppointment;
+    }
 
     private void executeCommandB(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
@@ -104,18 +139,15 @@ public class Kiosk {
         String appointmentTime = segmentedInput.nextToken();
         String appointmentLocation = segmentedInput.nextToken();
 
-        Time newAppointmentTime = new Time(appointmentTime);
-        Date newAppointmentDate = new Date(appointmentDate);
-        Date dateOfBirth = new Date(dob);
-
-        Patient newPatient = new Patient(fName, lName, dateOfBirth);
-        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
         Location newLocation = findLocation(appointmentLocation);
         if (!locationValid(appointmentLocation)) {
             System.out.println("Invalid location!");
             return;
         }
-        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+        Date dateOfBirth = new Date(dob);
+        Appointment newAppointment = createAppointment(dob, fName, lName, appointmentDate,
+                appointmentTime, appointmentLocation, newLocation);
 
         String message = schedule.isValid(newAppointment);
         if (message.equals("true")) {
@@ -134,18 +166,16 @@ public class Kiosk {
         String appointmentTime = segmentedInput.nextToken();
         String appointmentLocation = segmentedInput.nextToken();
 
-        Time newAppointmentTime = new Time(appointmentTime);
-        Date newAppointmentDate = new Date(appointmentDate);
-        Date dateOfBirth = new Date(dob);
-
-        Patient newPatient = new Patient(fName, lName, dateOfBirth);
-        Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
         Location newLocation = findLocation(appointmentLocation);
         if (!locationValid(appointmentLocation)) {
             System.out.println("Invalid location!");
             return;
         }
-        Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
+
+        Date dateOfBirth = new Date(dob);
+        Patient newPatient = new Patient(fName, lName, dateOfBirth);
+        Appointment newAppointment = createAppointment(dob, fName, lName, appointmentDate,
+                appointmentTime, appointmentLocation, newLocation);
 
         if (schedule.findPatient(newPatient)) {
 
@@ -228,7 +258,7 @@ public class Kiosk {
     }
 
 
-    
+
     /**
      * Runs command line text based interface
      *
