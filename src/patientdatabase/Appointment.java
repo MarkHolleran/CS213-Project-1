@@ -6,6 +6,12 @@ public class Appointment {
     private Timeslot slot;
     private Location location;
 
+    public Appointment(Patient patient, Timeslot slot, Location location){
+        this.patient = patient;
+        this.slot = slot;
+        this.location = location;
+    }
+
     @Override
     public boolean equals(Object obj) {
         Appointment app = (Appointment) obj;

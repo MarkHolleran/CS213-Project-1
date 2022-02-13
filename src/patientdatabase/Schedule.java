@@ -64,39 +64,27 @@ public class Schedule {
         return true;
     }
 
-    private String isValid(Appointment appt){
+    public String isValid(Appointment appt){
+        Date currentDate = new Date();
         if (!appt.getSlot().getDate().isValid()){
-            return "false";
-        }
-        //if(appt.getPatient().getDob())
-        //need current/future date checker
-
-
-        /*
-5. An appointment with the same patient, timeslot and location is already in the schedule.
-6. The specified timeslot (same date and time) at the specified location has already been taken.
-7. The location with the county name is not a valid location.
-8. The user is booking an appointment with the same patient and date but a different location with an existing
-appointment.
-         */
-        //5
-        if(find(appt) != NOT_FOUND){
+            return "Invalid appointment date!";
+        }else if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
+            return "Date of birth invalid -> it is a future date.";
+        }else if (appt.getSlot().getDate().compareTo(currentDate) <= 0){
+            return "Appointment date invalid -> must be a future date.";
+        }else if(!appt.getSlot().getTime().isValid()){
+            return "Invalid appointment time! Must enter a time between 9:00 and 16:45 with a 15-minute interval.";
+        }else if(find(appt) != NOT_FOUND){
             return "Same appointment exists in the schedule.";
         }
-        //6
+
         for(int i = 0; i < numAppts-1; i++){
             if(appointments[i].getLocation().equals(appt.getLocation())
                 && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
                 return "Time slot has been taken at this location";
             }
         }
-        //7 might have to be done in Kiosk itself lol
-        /*
-        if(appt.getLocation()){
-            return false;
-        }
-        */
-        //8
+        //7 still needs to be implemented with location
         for(int i = 0; i < numAppts-1; i++){
             if(appointments[i].getSlot().getDate().compareTo(appt.getSlot().getDate()) == 0 &&
                 appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
@@ -105,72 +93,6 @@ appointment.
         }
         return "true";
     }
-
-
-        //date is not a valid calendar date
-        //date of birth is today or future date
-        //appt date is today or a da before today or a day beyond this year
-        //time is not a 15 interval and outside of the range of appointment times of the day
-
-        //1st appointment is at 9 and the last one is at 16:45
-
-
-
-
-
-
-    public boolean isAppointmentDateValid(Appointment appt){
-
-        //The appointment date is today or a date before today, (checked in 2nd part of if statement)
-        // or a date beyond this year.   (checked in date.isvalid method)
-
-
-        Date currentDate = new Date();
-
-        if ((appt.getSlot().getDate().isValid() == true) && (appt.getSlot().getDate().getDay() > currentDate.getDay()) && (appt.getSlot().getDate().getMonth() >= currentDate.getMonth())){
-
-            //if its a valid date and the appt day is Not today and the month is not in the future
-
-            return true;
-
-        }else {
-
-            return false;
-        }
-
-
-    }
-    public boolean isDateofBirthValid (Appointment appt){
-
-        Date currentDate = new Date();
-
-        if (appt.getSlot().getDate().isValid() == true && appt.getPatient().getDob().getDay() != currentDate.getDay() && appt.getPatient().getDob().getMonth() <= currentDate.getMonth()){
-
-            //date of birth is today or future date
-            //if it's a valid date and the DOB is not today and the DOB month is not in the future
-
-            return true;
-
-        }else {
-
-            return false;
-        }
-
-    }
-
-    public boolean isAppointmentTimeValid(Appointment appt){
-
-        if (appt.getSlot().getTime().isValid() == true){
-
-            return true;
-
-        }else {
-
-            return false;
-        }
-
-    }
-
 
 
     public boolean remove(Appointment appt){

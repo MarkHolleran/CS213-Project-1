@@ -19,16 +19,25 @@ public class Kiosk {
 
 
 
-        public Boolean locationValid(String inputLocation){
+        public static Boolean locationValid(String inputLocation){
             String inputLocationToUpper = inputLocation.toUpperCase();
             for (Location location : Location.values()){
-                if (location.name().toString().equals(inputLocation)){
+                if (location.name().equals(inputLocation.toUpperCase())){
                     return true;
                 }
             }
             return false;
-
         }
+
+    public static Location findLocation(String inputLocation){
+        String inputLocationToUpper = inputLocation.toUpperCase();
+        for (Location location : Location.values()){
+            if (location.name().equals(inputLocation.toUpperCase())){
+                return location;
+            }
+        }
+        return null;
+    }
 
 
 
@@ -53,19 +62,12 @@ public class Kiosk {
 
 
         while (!commandInput.equals("Q")){
-
             StringTokenizer segmentedInput = new StringTokenizer(commandInput," ");
-
-
             switch (segmentedInput.nextToken()){
 
-
                 case "B":
-
                     System.out.println("command B chosen");
-
                     if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS){
-
                         try {
                             String dob = segmentedInput.nextToken();
                             String fName = segmentedInput.nextToken();
@@ -74,129 +76,55 @@ public class Kiosk {
                             String appointmentTime = segmentedInput.nextToken();
                             String appointmentLocation = segmentedInput.nextToken();
 
-                            //make schedule right when kiosk boots
-                            //if add appt then do it inside case
-
-                            //check if dob is valid
-                            //appointment date
-                            //appointment time
-                            //appointment location
-
                             Time newAppointmentTime = new Time (appointmentTime);
                             Date newAppointmentDate = new Date(appointmentDate);
                             Date dateOfBirth = new Date(dob);
 
                             //have to do this one at some point
                             Patient newPatient = new Patient(fName,lName,dob);
-                            Appointment newAppointment = new Appointment();
-
-                            if (newAppointmentDate.isValid() == true && newAppointmentTime.isValid() == true){
-                                //both inputs required for timeslot are valid then we make timeslot object
-
-                                Timeslot newAppointmentTimeslot = new Timeslot(newAppointmentDate,newAppointmentTime);
-
-
-                            }else if (newAppointmentDate.isValid() == true && newAppointmentTime.isValid() == false){
-
-                                System.out.println("Appointment Time is Invalid!");
-
-                            }else if (newAppointmentDate.isValid() == false && newAppointmentTime.isValid() == true){
-
-
-                                System.out.println("Appointment Date is Invalid!");
-
-                            }else {
-
-                                System.out.println("Appointment Date & time are Invalid!");
+                            Timeslot newSlot = new Timeslot(newAppointmentDate, newAppointmentTime);
+                            Location newLocation = findLocation(appointmentLocation);
+                            if (!locationValid(appointmentLocation)){
+                                System.out.println("Invalid location!");
+                                break;
                             }
+                            Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
 
-                            if (locationValid(appointmentLocation) == true){
-                                //location input for creating a new appointment is valid
-
-
+                            String message = schedule.isValid(newAppointment);
+                            if(message.equals("true")){
+                                System.out.println("Appointment booked and added to the schedule.");
+                            }else{
+                                System.out.println(message);
                             }
-
-                            if (new.isValid() == true && dateOfBirth.isValid() == true ){
-                                //if appointment date is valid then continue
-
-
-
-
-
-                            }else {
-
-                                System.out.println("Invalid Date!");
-                            }
-
+                            
                         } catch (Exception e){
-
                             System.out.println("Invalid Command!");
                         }
 
-
                     }else {
-
                         System.out.println("Insufficient input for command");
                     }
-
-
-                //book an appt and add appt to schedule
-                    //schedule contains list of appts
-                    //EX: B 8/31/1978 Jane Doe 7/19/2022 9:15 middlesex
-
                         break;
-
-                case "B": commandInput = "B";
-
-                    System.out.println("command B chosen");
-                    //book an appt
-                    //EX: C 8/31/1978 Jane Doe 7/19/2022 9:15 middlesex
-                    break;
-
                 case "C": commandInput = "C";
-
-                System.out.println("command C chosen");
-                //cancel appt and remove specified appt from schedule
-                    //EX: C 8/31/1978 Jane Doe 7/19/2022 9:15 middlesex
+                    schedule.remove(appt);
                     break;
-
                 case "CP": commandInput = "CP";
-
-                    System.out.println("command CP chosen");
-
+                    //make this method dummy
                     //cancel all appts of a given patient & remove all appts for this appt from the shedule
-
-                    //EX: CP 8/31/1978 Jane Doe
                     break;
-
                 case "P": commandInput = "P";
-
-                    System.out.println("command P chosen");
                     schedule.print();
                     break;
-
                 case "PZ": commandInput = "PZ";
-                    System.out.println("command PZ chosen");
                     schedule.printByZip();
                     break;
-
                 case "PP": commandInput = "PP";
-
-                    System.out.println("command PP chosen");
                     schedule.printByPatient();
                     break;
-
-                    //stops program execution and display 'kiosk session ended'
                 case "Q": commandInput = "Q";
-
-                    System.out.println("command Q chosen");
-
                     break;
-
                 default:
-
                     System.out.println("Invalid Command!");
-
                     break;
             }
 
