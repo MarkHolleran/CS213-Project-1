@@ -94,7 +94,7 @@ public class Date implements Comparable<Date> {
 
         Date currentDate = new Date();
 
-        if (year >= currentDate.year || year < MIN_YEAR) {
+        if (year > currentDate.year || year < MIN_YEAR) {
 
             yearValid = false;
 
