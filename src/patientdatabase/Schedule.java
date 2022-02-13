@@ -42,6 +42,15 @@ public class Schedule {
         return NOT_FOUND;
     }
 
+    public boolean findPatient(Patient patient){
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getPatient().compareTo(patient) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //searches an appointment in the list and returns the index if found or returns -1 if not found
     //must define a constant indentifier "NOT_FOUND" for the value -1
     private void grow() {
@@ -64,80 +73,35 @@ public class Schedule {
         return true;
     }
 
-    private boolean isValid(Appointment appt){
+    public String isValid(Appointment appt){
+        Date currentDate = new Date();
         if (!appt.getSlot().getDate().isValid()){
-            return false;
-        }
-        //if(appt.getPatient().getDob())
-        //need current/future date checker
-        return true;
-    }
-
-
-        //date is not a valid calendar date
-        //date of birth is today or future date
-        //appt date is today or a da before today or a day beyond this year
-        //time is not a 15 interval and outside of the range of appointment times of the day
-
-        //1st appointment is at 9 and the last one is at 16:45
-
-
-
-
-
-
-    public boolean isAppointmentDateValid(Appointment appt){
-
-        //The appointment date is today or a date before today, (checked in 2nd part of if statement)
-        // or a date beyond this year.   (checked in date.isvalid method)
-
-
-        Date currentDate = new Date();
-
-        if ((appt.getSlot().getDate().isValid() == true) && (appt.getSlot().getDate().getDay() > currentDate.getDay()) && (appt.getSlot().getDate().getMonth() >= currentDate.getMonth())){
-
-            //if its a valid date and the appt day is Not today and the month is not in the future
-
-            return true;
-
-        }else {
-
-            return false;
+            return "Invalid appointment date!";
+        }else if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
+            return "Date of birth invalid -> it is a future date.";
+        }else if (appt.getSlot().getDate().compareTo(currentDate) <= 0){
+            return "Appointment date invalid -> must be a future date.";
+        }else if(!appt.getSlot().getTime().isValid()){
+            return "Invalid appointment time! Must enter a time between 9:00 and 16:45 with a 15-minute interval.";
+        }else if(find(appt) != NOT_FOUND){
+            return "Same appointment exists in the schedule.";
         }
 
-
-    }
-    public boolean isDateofBirthValid (Appointment appt){
-
-        Date currentDate = new Date();
-
-        if (appt.getSlot().getDate().isValid() == true && appt.getPatient().getDob().getDay() != currentDate.getDay() && appt.getPatient().getDob().getMonth() <= currentDate.getMonth()){
-
-            //date of birth is today or future date
-            //if it's a valid date and the DOB is not today and the DOB month is not in the future
-
-            return true;
-
-        }else {
-
-            return false;
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getLocation().equals(appt.getLocation())
+                && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
+                return "Time slot has been taken at this location";
+            }
         }
-
-    }
-
-    public boolean isAppointmentTimeValid(Appointment appt){
-
-        if (appt.getSlot().getTime().isValid() == true){
-
-            return true;
-
-        }else {
-
-            return false;
+        //7 still needs to be implemented with location
+        for(int i = 0; i < numAppts-1; i++){
+            if(appointments[i].getSlot().getDate().compareTo(appt.getSlot().getDate()) == 0 &&
+                appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
+                return "Same patient cannot book an appointment with the same date.";
+            }
         }
-
+        return "true";
     }
-
 
 
     public boolean remove(Appointment appt){
@@ -155,10 +119,10 @@ public class Schedule {
         return true;
     }
 
-    public boolean removeAll(Appointment appt){
+    public boolean removeAll(Patient patient){
 
         for(int i = 0; i < numAppts-1; i++){
-            if(appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
+            if(appointments[i].getPatient().compareTo(patient) == 0){
                 int deleteIndex = i;
                 int lastElement = numAppts-1;
                 for(int j = deleteIndex; j < lastElement; j++){
