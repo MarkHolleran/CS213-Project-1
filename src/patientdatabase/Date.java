@@ -22,7 +22,7 @@ public class Date implements Comparable<Date> {
     public static final int DAYS_IN_NOVEMBER = 30;
 
     public static final int JANUARY = 1;
-    public static final int FEBUARY = 2;
+    public static final int FEBRUARY = 2;
     public static final int MARCH = 3;
     public static final int APRIL = 4;
     public static final int MAY = 5;
@@ -39,8 +39,8 @@ public class Date implements Comparable<Date> {
 
     public static final int MAX_MONTH = 12;
     public static final int MIN_MONTH = 1;
-    public static final int DAYS_IN_FEBUARY_LEAP = 29;
-    public static final int DAYS_IN_FEBUARY_NONLEAP = 28;
+    public static final int DAYS_IN_FEBRUARY_LEAP = 29;
+    public static final int DAYS_IN_FEBRUARY_NONLEAP = 28;
     public static final int MIN_DAY = 1;
     public static final int MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER = 30;
     public static final int MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY = 31;
@@ -183,13 +183,13 @@ public class Date implements Comparable<Date> {
 
             }
 
-        } else if (month == FEBUARY) {
+        } else if (month == FEBRUARY) {
 
-            if (leapYearChecker() == false && day <= DAYS_IN_FEBUARY_NONLEAP && day >= MIN_DAY) {
+            if (leapYearChecker() == false && day <= DAYS_IN_FEBRUARY_NONLEAP && day >= MIN_DAY) {
 
                 dayValid = true;
 
-            } else if (leapYearChecker() == true && day <= DAYS_IN_FEBUARY_LEAP && day >= MIN_DAY) {
+            } else if (leapYearChecker() == true && day <= DAYS_IN_FEBRUARY_LEAP && day >= MIN_DAY) {
 
                 dayValid = true;
 
@@ -213,8 +213,8 @@ public class Date implements Comparable<Date> {
 
     /**
      * Checks if the year is a leap year or not.
-     * Only ran when the Month is Febuary
-     * to determine if Febuary should have 28 or 29
+     * Only ran when the Month is February
+     * to determine if February should have 28 or 29
      * days in a Month.
      *
      * @return True or false if Year is a leap year
@@ -319,37 +319,83 @@ public class Date implements Comparable<Date> {
      */
     public static void main (String[]args){
 
-        //Test 1:
+        //format: MONTH DAY YEAR
 
-        //Test 2
+        //Test 1: Month is > 12
+        System.out.println("test 1");
+        Date test1 = new Date("13/13/2022");
+        if (test1.isValid()) System.out.println("test 1 failed");
+        else System.out.println("test 2 passed");
 
-        //Test 3
+        //Test 2: Month is < 1
+        System.out.println("test 2");
+        Date test2 = new Date("0/13/2022");
+        if (test2.isValid()) System.out.println("test 2 failed");
+        else System.out.println("test 2 passed");
 
-        //Test 4
+        //Test 3: Day is over max day for a month with a max of 31 days
+        System.out.println("test 3");
+        Date test3 = new Date("12/32/2022");
+        if (test3.isValid()) System.out.println("test 3 failed");
+        else System.out.println("test 3 passed");
 
-        //Test 5
+        //Test 4: Day is over max day for a month with a max of 30 days  (september )
+        System.out.println("test 4");
+        Date test4 = new Date("4/31/2022");
+        if (test4.isValid()) System.out.println("test 4 failed");
+        else System.out.println("test 4 passed");
 
-        //Test 6
+        //Test 5: day is less than 1
+        System.out.println("test 5");
+        Date test5 = new Date("5/0/2022");
+        if (test5.isValid()) System.out.println("test 5 failed");
+        else System.out.println("test 5 passed");
 
-        // Test 7
+        //Test 6: year is above max year (2022)
+        System.out.println("test 6");
+        Date test6 = new Date("4/12/2024");
+        if (test6.isValid()) System.out.println("test 6 failed");
+        else System.out.println("test 6 passed");
 
-        //must design test cases to thoroughly test the isValid() method
-        //must write testbed main and implement the test cases
+        //Test 7: No input for date (default constructor for today's date)
+        System.out.println("test 7");
+        Date test7 = new Date();
+        if (!test7.isValid()) System.out.println("test 7 failed");
+        else System.out.println("test 7 passed");
+
+        //Test 8: String of characters in place of Integers
+        System.out.println("test 8");
+        Date test8 = new Date("4/twenty/2021");
+        if (test8.isValid()) System.out.println("test 8 failed");
+        else System.out.println("test 8 passed");
+
+        //Test 9: blank date (just a space)
+        System.out.println("test 9");
+        Date test9 = new Date(" ");
+        if (test9.isValid()) System.out.println("test 9 failed");
+        else System.out.println("test 9 passed");
+
+        //Test 10: blank date with /'s
+        System.out.println("test 10");
+        Date test10 = new Date(" / / ");
+        if (test10.isValid()) System.out.println("test 10 failed");
+        else System.out.println("test 10 passed");
+
+        //Test 11: 29 days for february on a leapyear
+        System.out.println("test 11");
+        Date test11 = new Date("2/29/2020");
+        if (!test11.isValid()) System.out.println("test 11 failed");
+        else System.out.println("test 11 passed");
+
+        //Test 12: 28 days in february when non leapyear
+        System.out.println("test 12");
+        Date test12 = new Date("2/29/2021");
+        if (test12.isValid()) System.out.println("test 12 failed");
+        else System.out.println("test 12 passed");
 
         //follow the instructions in the 'test design' section of the project formatting PDF
         //must write code to print out the test results to the console showing the test cases are passed or failed
 
-        //please use "//" comments to identify the test case numbers in the testbed main
-
-        Date datetest = new Date();
-
-        Date inputdate = new Date("12/31/1999");
-
-        System.out.println("day "+inputdate.day);
-        System.out.println("month "+ inputdate.month);
-        System.out.println("year "+inputdate.year);
-
-        System.out.println(datetest.compareTo(inputdate));
 
     }
 }
