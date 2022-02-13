@@ -57,7 +57,6 @@ public class Patient implements Comparable<Patient>{
      */
     public Date getDob(){
 
-
         return this.dob;
 
     }
