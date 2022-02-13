@@ -84,11 +84,11 @@ public class Schedule {
 
     public String isValid(Appointment appt){
         Date currentDate = new Date();
-        /*
+        ///*
         if (!appt.getPatient().getDob().isValid()){
             return "Invalid date of birth!";
         }else
-        */
+        //*/
             if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
             return "Date of birth invalid -> it is a future date.";
         }else if (!appt.getSlot().getDate().isValid()) {

@@ -103,7 +103,7 @@ public class Date implements Comparable<Date> {
 
         }
 
-        if (month > MAX_MONTH || month < MIN_YEAR) {     //if month is not 1-12 return falase
+        if (month > MAX_MONTH || month < MIN_MONTH) {     //if month is not 1-12 return falase
 
             monthValid = false;
 
@@ -112,7 +112,7 @@ public class Date implements Comparable<Date> {
             monthValid = true;
 
         }
-        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY) {                 //months that all are 31 days in length
+        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY || month == JANUARY) {                 //months that all are 31 days in length
 
             if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
 
