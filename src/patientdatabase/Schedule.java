@@ -42,6 +42,15 @@ public class Schedule {
         return NOT_FOUND;
     }
 
+    public boolean findApt(Appointment apt){
+        for(int i = 0; i < numAppts; i++){
+            if(appointments[i].equals(apt)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean findPatient(Patient patient){
         for(int i = 0; i < numAppts; i++){
             if(appointments[i].getPatient().compareTo(patient) == 0){
@@ -127,9 +136,11 @@ public class Schedule {
                 int lastElement = numAppts;
                 for(int j = deleteIndex; j < lastElement; j++){
                     appointments[j] = appointments[j + 1];
+
                 }
                 appointments[lastElement] = null;
                 numAppts--;
+                i--;
             }
         }
         return true;
@@ -144,7 +155,6 @@ public class Schedule {
     public void print(){
         System.out.println("*list of appointments in the schedule*");
         for(int i = 0; i < numAppts; i++){
-
             System.out.println(this.appointments[i].toString());
         }
         System.out.println("*end of schedule*");

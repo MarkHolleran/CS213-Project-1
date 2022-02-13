@@ -45,7 +45,12 @@
 
         @Override
         public String toString(){
-            return hour + ":" + minute;
+            if(minute == 0){
+                return hour + ":0" + minute;
+            }else{
+                return hour + ":" + minute;
+            }
+
         }
         @Override
         public int compareTo(Time time){

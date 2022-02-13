@@ -30,8 +30,15 @@ public class Timeslot implements Comparable<Timeslot>{
 
     @Override
     public String toString() {
-        return " Appointment detail: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + ", "
-                + time.getHour() + ":" + time.getMinute() + "," ;
+
+        if(time.getMinute() == 0){
+            return " Appointment detail: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + ", "
+                    + time.getHour() + ":0" + time.getMinute() + "," ;
+        }else{
+            return " Appointment detail: " + date.getMonth() + "/" + date.getDay() + "/" + date.getYear() + ", "
+                    + time.getHour() + ":" + time.getMinute() + "," ;
+        }
+
     }
     @Override
     public int compareTo(Timeslot slot){

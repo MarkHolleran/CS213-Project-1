@@ -127,9 +127,15 @@ public class Kiosk {
                             }
                             Appointment newAppointment = new Appointment(newPatient, newSlot, newLocation);
 
-                            if(!schedule.add(newAppointment)){
-                                System.out.println("Appointment cancelled.");
-                                schedule.remove(newAppointment);
+                            if(schedule.findPatient(newPatient)){
+
+                                if(schedule.findPatient(newPatient) && schedule.findApt(newAppointment)){
+                                    System.out.println("Appointment cancelled.");
+                                    schedule.remove(newAppointment);
+                                }else{
+                                    System.out.println("Not cancelled, appointment does not exist.");
+                                }
+
                             }else{
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
@@ -146,14 +152,18 @@ public class Kiosk {
 
                     if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS){
                         try{
-                            String dob = segmentedInput.nextToken();
                             String fName = segmentedInput.nextToken();
                             String lName = segmentedInput.nextToken();
+                            String dob = segmentedInput.nextToken();
                             Date dateOfBirth = new Date(dob);
                             Patient newPatient = new Patient(fName,lName,dateOfBirth);
 
                             if(schedule.findPatient(newPatient)){
                                 schedule.removeAll(newPatient);
+                                //All appointments for Jane Doe, DOB: 8/31/1978 have been cancelled.
+                                System.out.println("All appointments for "+newPatient.getFname() + " "
+                                        + newPatient.getLname() + ", DOB: " + newPatient.getDob().toString()
+                                        + " have been cancelled");
                             }else{
                                 System.out.println("Not cancelled, appointment does not exist.");
                             }
