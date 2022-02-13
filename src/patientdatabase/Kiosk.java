@@ -39,6 +39,7 @@ public class Kiosk {
         }
 
         return false;
+
     }
 
     /**
@@ -67,9 +68,7 @@ public class Kiosk {
         return null;
 
     }
-
-
-
+    
     /**
      * Runs command line text based interface
      *
