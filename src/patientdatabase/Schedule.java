@@ -106,6 +106,73 @@ appointment.
         return "true";
     }
 
+
+        //date is not a valid calendar date
+        //date of birth is today or future date
+        //appt date is today or a da before today or a day beyond this year
+        //time is not a 15 interval and outside of the range of appointment times of the day
+
+        //1st appointment is at 9 and the last one is at 16:45
+
+
+
+
+
+
+    public boolean isAppointmentDateValid(Appointment appt){
+
+        //The appointment date is today or a date before today, (checked in 2nd part of if statement)
+        // or a date beyond this year.   (checked in date.isvalid method)
+
+
+        Date currentDate = new Date();
+
+        if ((appt.getSlot().getDate().isValid() == true) && (appt.getSlot().getDate().getDay() > currentDate.getDay()) && (appt.getSlot().getDate().getMonth() >= currentDate.getMonth())){
+
+            //if its a valid date and the appt day is Not today and the month is not in the future
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+
+    }
+    public boolean isDateofBirthValid (Appointment appt){
+
+        Date currentDate = new Date();
+
+        if (appt.getSlot().getDate().isValid() == true && appt.getPatient().getDob().getDay() != currentDate.getDay() && appt.getPatient().getDob().getMonth() <= currentDate.getMonth()){
+
+            //date of birth is today or future date
+            //if it's a valid date and the DOB is not today and the DOB month is not in the future
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+    }
+
+    public boolean isAppointmentTimeValid(Appointment appt){
+
+        if (appt.getSlot().getTime().isValid() == true){
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+    }
+
+
+
     public boolean remove(Appointment appt){
         if(numAppts == 0 || find(appt) == NOT_FOUND){
             return false;
@@ -202,3 +269,7 @@ appointment.
     }
 
 }
+
+
+
+
