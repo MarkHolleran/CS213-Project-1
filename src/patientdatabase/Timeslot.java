@@ -52,7 +52,7 @@ public class Timeslot implements Comparable<Timeslot>{
             return dateDifference;
         }
 
-        dateDifference = Integer.compare(this.date.getYear(), slot.date.getYear());
+        dateDifference = Integer.compare(this.date.getDay(), slot.date.getDay());
         if (dateDifference != 0) {
             return dateDifference;
         }

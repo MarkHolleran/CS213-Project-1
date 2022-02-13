@@ -165,33 +165,20 @@ public class Date implements Comparable<Date> {
     }
 
     private boolean leapYearChecker() {
-
         int isYearValid = year;
-
         if (isYearValid % 4 == 0) {
-
             if (isYearValid % 100 == 0) {
-
                 if (isYearValid % 400 == 0) {
-
                     return true;
-
                 } else {
-
                     return false;
                 }
-
             } else {
-
                 return true;
-
             }
-
         } else {
-
             return false;
         }
-
     }
 
     //don't use magic numbers instead do like

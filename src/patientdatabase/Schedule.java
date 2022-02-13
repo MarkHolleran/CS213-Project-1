@@ -84,10 +84,15 @@ public class Schedule {
 
     public String isValid(Appointment appt){
         Date currentDate = new Date();
-        if (!appt.getSlot().getDate().isValid()){
-            return "Invalid appointment date!";
-        }else if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
+        /*
+        if (!appt.getPatient().getDob().isValid()){
+            return "Invalid date of birth!";
+        }else
+        */
+            if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
             return "Date of birth invalid -> it is a future date.";
+        }else if (!appt.getSlot().getDate().isValid()) {
+            return "Invalid appointment date!";
         }else if (appt.getSlot().getDate().compareTo(currentDate) <= 0){
             return "Appointment date invalid -> must be a future date.";
         }else if(!appt.getSlot().getTime().isValid()){
@@ -99,7 +104,7 @@ public class Schedule {
         for(int i = 0; i < numAppts; i++){
             if(appointments[i].getLocation().equals(appt.getLocation())
                 && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
-                return "Time slot has been taken at this location";
+                return "Time slot has been taken at this location.";
             }
         }
         //7 still needs to be implemented with location
