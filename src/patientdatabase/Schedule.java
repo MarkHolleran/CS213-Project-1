@@ -153,11 +153,9 @@ public class Schedule {
 
     //
     public void print(){
-        System.out.println("*list of appointments in the schedule*");
         for(int i = 0; i < numAppts; i++){
             System.out.println(this.appointments[i].toString());
         }
-        System.out.println("*end of schedule*");
     }
     public void printByZip() {
         int n = numAppts;
@@ -182,6 +180,8 @@ public class Schedule {
             appointments[j + 1] = key;
         }
         print();
+        System.out.println("*end of list.");
+        System.out.println();
     }
     public void printByPatient() {
         int n = numAppts;
@@ -210,6 +210,8 @@ public class Schedule {
             appointments[j + 1] = key;
         }
         print();
+        System.out.println("*end of list.");
+        System.out.println();
     }
 
 }
