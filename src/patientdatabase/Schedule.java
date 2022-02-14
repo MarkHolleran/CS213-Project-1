@@ -251,7 +251,7 @@ public class Schedule {
     //maintains relative order of the appointments in the list after deletion
 
     /**
-     * Prints each Appointment object within an arraylist of Appointment objects by zipcode
+     * Prints each Appointment object within an array of Appointment objects by zipcode
      *
      * Each Appointment object is printed to the command line in the order
      * of Zipcode by going through each occupied array index for
@@ -285,7 +285,7 @@ public class Schedule {
     }
 
     /**
-     * Prints each Appointment object within arraylist of Appointment objects
+     * Prints each Appointment object within array of Appointment objects
      *
      * Each Appointment object is printed to the command line
      * by going through each occupied array index for the number of
