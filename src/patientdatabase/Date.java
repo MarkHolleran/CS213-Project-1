@@ -319,8 +319,6 @@ public class Date implements Comparable<Date> {
      */
     public static void main (String[]args){
 
-        //format: MONTH DAY YEAR
-
         //Test 1: Month is > 12
         System.out.println("test 1");
         Date test1 = new Date("13/13/2022");
@@ -363,39 +361,17 @@ public class Date implements Comparable<Date> {
         if (!test7.isValid()) System.out.println("test 7 failed");
         else System.out.println("test 7 passed");
 
-        //Test 8: String of characters in place of Integers
+        //Test 8: 29 days for february on a leapyear
         System.out.println("test 8");
-        Date test8 = new Date("4/twenty/2021");
-        if (test8.isValid()) System.out.println("test 8 failed");
-        else System.out.println("test 8 passed");
-
-        //Test 9: blank date (just a space)
-        System.out.println("test 9");
-        Date test9 = new Date(" ");
-        if (test9.isValid()) System.out.println("test 9 failed");
-        else System.out.println("test 9 passed");
-
-        //Test 10: blank date with /'s
-        System.out.println("test 10");
-        Date test10 = new Date(" / / ");
-        if (test10.isValid()) System.out.println("test 10 failed");
-        else System.out.println("test 10 passed");
-
-        //Test 11: 29 days for february on a leapyear
-        System.out.println("test 11");
-        Date test11 = new Date("2/29/2020");
-        if (!test11.isValid()) System.out.println("test 11 failed");
+        Date test8 = new Date("2/29/2020");
+        if (!test8.isValid()) System.out.println("test 8 failed");
         else System.out.println("test 11 passed");
 
-        //Test 12: 28 days in february when non leapyear
-        System.out.println("test 12");
-        Date test12 = new Date("2/29/2021");
-        if (test12.isValid()) System.out.println("test 12 failed");
-        else System.out.println("test 12 passed");
-
-        //follow the instructions in the 'test design' section of the project formatting PDF
-        //must write code to print out the test results to the console showing the test cases are passed or failed
-
+        //Test 9: 28 days in february when non leapyear
+        System.out.println("test 9");
+        Date test9 = new Date("2/29/2021");
+        if (test9.isValid()) System.out.println("test 9 failed");
+        else System.out.println("test 9 passed");
 
     }
 }
