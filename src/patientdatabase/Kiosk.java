@@ -133,6 +133,8 @@ public class Kiosk {
      * @param appointmentDate String containing date of appointment
      * @param appointmentTime String containing time of appointment
      * @param newLocation Location of Appointment
+     *
+     * @return Appointment object containing dob, fName, lName, AppointmentDate, AppointmentTime, and newLocation
      */
     private Appointment createAppointment(String dob, String fName, String lName, String appointmentDate,
                                           String appointmentTime, Location newLocation){
