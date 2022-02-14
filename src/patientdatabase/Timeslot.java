@@ -126,10 +126,10 @@ public class Timeslot implements Comparable<Timeslot>{
         Date testdate1 = new Date("4/20/2020");
         Timeslot testslot = new Timeslot(testdate1,testtime1);
 
-
+        /*
         if (test12.isValid()) System.out.println("test 1 failed");
         else System.out.println("test 1 passed");
-
+        */
         //Test 2:
         //Test 3:
         //Test 4:

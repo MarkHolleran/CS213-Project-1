@@ -133,82 +133,86 @@ public class Date implements Comparable<Date> {
      * @return True or False based on Date validity
      */
     public boolean isValid() {
+        try{
+            boolean monthValid = false;
+            boolean yearValid = false;
+            boolean dayValid = false;
 
-        boolean monthValid = false;
-        boolean yearValid = false;
-        boolean dayValid = false;
+            Date currentYear = new Date();
 
-        Date currentYear = new Date();
+            if (year < MIN_YEAR || year > MAX_YEAR) {
 
-        if (year < MIN_YEAR || year > MAX_YEAR) {
-
-            yearValid = false;
-
-        } else {
-
-            yearValid = true;
-
-        }
-
-        if (month > MAX_MONTH || month < MIN_MONTH) {     //if month is not 1-12 return falase
-
-            monthValid = false;
-
-        } else {
-
-            monthValid = true;
-
-        }
-        if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY || month == JANUARY) {
-
-            if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
-
-                dayValid = false;
+                yearValid = false;
 
             } else {
 
-                dayValid = true;
+                yearValid = true;
 
             }
 
-        } else if (month == APRIL || month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
+            if (month > MAX_MONTH || month < MIN_MONTH) {     //if month is not 1-12 return falase
 
-            if (day > MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER || day < MIN_DAY) {
-
-                dayValid = false;
+                monthValid = false;
 
             } else {
 
-                dayValid = true;
+                monthValid = true;
+
+            }
+            if (month == MAY || month == DECEMBER || month == OCTOBER || month == MARCH || month == AUGUST || month == JULY || month == JANUARY) {
+
+                if (day > MAX_DAYS_FOR_MAY_DECEMBER_OCTOBER_JULY_AUGUST_MARCH_JANUARY || day < MIN_DAY) {
+
+                    dayValid = false;
+
+                } else {
+
+                    dayValid = true;
+
+                }
+
+            } else if (month == APRIL || month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
+
+                if (day > MAX_DAYS_FOR_APRIL_JUNE_SEPTEMBER_NOVEMBER || day < MIN_DAY) {
+
+                    dayValid = false;
+
+                } else {
+
+                    dayValid = true;
+
+                }
+
+            } else if (month == FEBRUARY) {
+
+                if (leapYearChecker() == false && day <= DAYS_IN_FEBRUARY_NONLEAP && day >= MIN_DAY) {
+
+                    dayValid = true;
+
+                } else if (leapYearChecker() == true && day <= DAYS_IN_FEBRUARY_LEAP && day >= MIN_DAY) {
+
+                    dayValid = true;
+
+                } else {
+
+                    dayValid = false;
+
+                }
 
             }
 
-        } else if (month == FEBRUARY) {
+            if (monthValid == true && yearValid == true && dayValid == true) {
 
-            if (leapYearChecker() == false && day <= DAYS_IN_FEBRUARY_NONLEAP && day >= MIN_DAY) {
-
-                dayValid = true;
-
-            } else if (leapYearChecker() == true && day <= DAYS_IN_FEBRUARY_LEAP && day >= MIN_DAY) {
-
-                dayValid = true;
+                return true;
 
             } else {
 
-                dayValid = false;
-
+                return false;
             }
-
-        }
-
-        if (monthValid == true && yearValid == true && dayValid == true) {
-
-            return true;
-
-        } else {
-
+        }catch(Exception e){
             return false;
         }
+
     }
 
     /**
@@ -381,7 +385,7 @@ public class Date implements Comparable<Date> {
         if (test10.isValid()) System.out.println("test 10 failed");
         else System.out.println("test 10 passed");
 
-        //Test 11: 29 days for february on a leapyear
+        //Test 11: 29 days for february on  a leapyear
         System.out.println("test 11");
         Date test11 = new Date("2/29/2020");
         if (!test11.isValid()) System.out.println("test 11 failed");
