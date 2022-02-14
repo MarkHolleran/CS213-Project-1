@@ -5,11 +5,12 @@ import java.util.StringTokenizer;
 
 /**
  * Class that provides a text based interface
- * that takes command line arguments from the client
+ * that takes command line arguments from the client.
+ * Kiosk handles user input to accordingly deal with Appointments
+ * and the commands they are associated with.
  *
  * @author Mark Holleran, Abhitej Bokka
  */
-
 public class Kiosk {
 
     public static final int BOOK_PATIENT_APPT_NUM_ARGUMENTS = 6 ;
@@ -60,10 +61,12 @@ public class Kiosk {
 
     /**
      * Attempts to insert an Appointment and will print error message if unable to.
+     * If the command follows the proper formatting,
+     * the command will move forward to executeCommandB().
+     *
      *
      * @param segmentedInput User Input contained as Tokens
      * @param schedule Instance of schedule
-     *
      */
     private void tryCommandB(StringTokenizer segmentedInput, Schedule schedule){
         if (segmentedInput.countTokens() == BOOK_PATIENT_APPT_NUM_ARGUMENTS) {
@@ -80,10 +83,11 @@ public class Kiosk {
 
     /**
      * Attempts to delete an Appointment and will print error message if unable to.
+     * If the command follows the proper formatting,
+     * the command will move forward to executeCommandC().
      *
      * @param segmentedInput User Input contained as Tokens
      * @param schedule Instance of schedule
-     *
      */
     private void tryCommandC(StringTokenizer segmentedInput, Schedule schedule){
         if (segmentedInput.countTokens() == CANCEL_SINGLE_APPT_NUM_ARGUMENTS) {
@@ -97,6 +101,15 @@ public class Kiosk {
         }
     }
 
+    /**
+     * Attempts to delete all Appointments of a Patient
+     * and will print error message if unable to.
+     * If the command follows the proper formatting,
+     * the command will move forward to executeCommandCP().
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     */
     private void tryCommandCP(StringTokenizer segmentedInput, Schedule schedule){
         if (segmentedInput.countTokens() == CANCEL_ALL_PATIENT_APPT_NUM_ARGUMENTS) {
             try {
@@ -109,8 +122,19 @@ public class Kiosk {
         }
     }
 
+
+    /**
+     * Creates Patient given the separated strings and the location.
+     *
+     * @param dob String representing Date of Birth of Patient
+     * @param fName String representing Patient's first name
+     * @param lName String representing Patient's last name
+     * @param appointmentDate String containing date of appointment
+     * @param appointmentTime String containing time of appointment
+     * @param newLocation Location of Appointment
+     */
     private Appointment createAppointment(String dob, String fName, String lName, String appointmentDate,
-                                          String appointmentTime, String appointmentLocation, Location newLocation){
+                                          String appointmentTime, Location newLocation){
         Time newAppointmentTime = new Time(appointmentTime);
         Date newAppointmentDate = new Date(appointmentDate);
         Date dateOfBirth = new Date(dob);
@@ -123,6 +147,14 @@ public class Kiosk {
         return newAppointment;
     }
 
+    /**
+     * Inserts an Appointment into an instance of Schedule unless
+     * sent a message by isValid() in Schedule.
+     *
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     */
     private void executeCommandB(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
@@ -139,7 +171,7 @@ public class Kiosk {
 
         Date dateOfBirth = new Date(dob);
         Appointment newAppointment = createAppointment(dob, fName, lName, appointmentDate,
-                appointmentTime, appointmentLocation, newLocation);
+                appointmentTime, newLocation);
 
         String message = schedule.isValid(newAppointment);
         if (message.equals("true")) {
@@ -150,6 +182,13 @@ public class Kiosk {
         }
     }
 
+    /**
+     * Deletes an Appointment from an instance of Schedule unless
+     * not found in Schedule's array of Appointments.
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     */
     private void executeCommandC(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
@@ -167,7 +206,7 @@ public class Kiosk {
         Date dateOfBirth = new Date(dob);
         Patient newPatient = new Patient(fName, lName, dateOfBirth);
         Appointment newAppointment = createAppointment(dob, fName, lName, appointmentDate,
-                appointmentTime, appointmentLocation, newLocation);
+                appointmentTime, newLocation);
 
         if (schedule.findPatient(newPatient)) {
 
@@ -183,6 +222,13 @@ public class Kiosk {
         }
     }
 
+    /**
+     * Deletes all Appointment from an instance of Schedule unless
+     * not found in Schedule's array of Appointments.
+     *
+     * @param segmentedInput User Input contained as Tokens
+     * @param schedule Instance of schedule
+     */
     private void executeCommandCP(StringTokenizer segmentedInput, Schedule schedule){
         String dob = segmentedInput.nextToken();
         String fName = segmentedInput.nextToken();
@@ -200,7 +246,11 @@ public class Kiosk {
             System.out.println("Not cancelled, appointment does not exist.");
         }
     }
-
+    /**
+     * Prints schedule of Appointments
+     *
+     * @param schedule Instance of schedule
+     */
     private void executeCommandP(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments in the schedule*");
@@ -209,18 +259,39 @@ public class Kiosk {
         System.out.println();
     }
 
+    /**
+     * Prints schedule of Appointments ordered by Zipcode.
+     * Once organized by zipcodes, the appointments are sorted by earliest timeslot.
+     *
+     * @param schedule Instance of schedule
+     */
     private void executeCommandPZ(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments by zip and time slot.");
         schedule.printByZip();
     }
 
+    /**
+     * Prints schedule of Appointments ordered by Patient.
+     * Sorts by last name of patient, followed by first name,
+     * and finally their date of birth.
+     * These appointments are then sorted by earliest timeslot.
+     *
+     * @param schedule Instance of schedule
+     */
     private void executeCommandPP(Schedule schedule){
         System.out.println();
         System.out.println("*list of appointments by patient.");
         schedule.printByPatient();
     }
 
+    /**
+     * Takes in user input to call the corresponding command.
+     * Used by run() to handle valid commands
+     *
+     * @param segmentedInput Token containing command type
+     * @param schedule Instance of schedule
+     */
     private void parseCommands(StringTokenizer segmentedInput, Schedule schedule){
         switch (segmentedInput.nextToken()) {
             case "B":
