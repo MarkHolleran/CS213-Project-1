@@ -64,7 +64,7 @@ public class Date implements Comparable<Date> {
 
     /**
      * Creates a Date object given a String input
-     * MM DD & YYYY are chosen by using the .indexOf Parameter
+     * MM DD and YYYY are chosen by using the .indexOf Parameter
      * in the Java String class to split the String by "/"
      *
      * @param date String in the form of MM/DD/YYYY

@@ -8,9 +8,15 @@ package patientdatabase;
  */
 public class RunProject1 {
 
+    /**
+     * Performs the kiosk().run() command
+     *
+     * @param args Runs the kiosk run
+     */
     public static void main(String[] args) {
 
         new Kiosk().run();
-
     }
 }
+
+
