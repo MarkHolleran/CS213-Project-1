@@ -16,6 +16,14 @@ public class Schedule {
     private Appointment  [] appointments;
     private int numAppts;
 
+    /**
+     * Creates a new Schedule
+     *
+     * A Schedule consists of an array of Appointment objects
+     * that has a default size of 4 as well as the current
+     * number of Appointment objects within the array
+     * as well as the number of appointments.
+     */
     public Schedule() {
 
         this.appointments = new Appointment[4];
@@ -24,6 +32,15 @@ public class Schedule {
 
     }
 
+    /**
+     * Attempts to find a specified Appointment Object
+     * within an array of Appointments
+     * Returns Index of where the Appointment is if found
+     *
+     * @param apt Appointment object that will be searched for
+     * @return Index Integer value of where the Appointment object
+     * is found within the array
+     */
     private int find(Appointment apt){
 
         for(int i = 0; i < numAppts; i++){
@@ -40,6 +57,15 @@ public class Schedule {
 
     }
 
+    /**
+     * Attempts to find a specified Appointment
+     * object within an array of Appointments
+     * Returns True if found, false otherwise
+     *
+     * @param apt Appointment object that will be searched for
+     * @return True if Appointment object exists within
+     * an array or false if it does not exist
+     */
     public boolean findApt(Appointment apt){
 
         for(int i = 0; i < numAppts; i++){
@@ -56,6 +82,14 @@ public class Schedule {
 
     }
 
+    /**
+     * Attempts to find a specified Patient
+     * object within an array of Appointments
+     * Returns true if found, false otherwise
+     *
+     * @param patient Patient object that will be searched for
+     * @return True if Patient object is found
+     */
     public boolean findPatient(Patient patient){
 
         for(int i = 0; i < numAppts; i++){
@@ -72,6 +106,10 @@ public class Schedule {
 
     }
 
+    /**
+     * Increases array length of Appointment array by 4
+     * once the array is full
+     */
     private void grow() {
 
         int resizedLength = appointments.length+4;
@@ -87,6 +125,15 @@ public class Schedule {
 
     }
 
+    /**
+     * Uses the find() function to validate if
+     * the Appointment object to be added is unique
+     * within the array or if it already exists
+     * Returns true if doesn't exist, false otherwise
+     *
+     * @param appt Appointment object to be added to array
+     * @return True if Appointment is added, false if it already exists
+     */
     public boolean add(Appointment appt){
 
         if(find(appt) != NOT_FOUND){
@@ -110,9 +157,12 @@ public class Schedule {
 
 
     /**
+     *Returns a String listing everything invalid about an Appointment object
+     *Checks Appointment array, date, and timeslot to make sure it's valid
+     * 
+     * @param appt Appointment object to be tested for validity
      *
-     * @param appt Appointment object 
-     * @return
+     * @return String noting what is or is not wrong with an Appointment object
      */
     public String isValid(Appointment appt){
 
