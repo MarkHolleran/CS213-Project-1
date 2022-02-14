@@ -369,13 +369,19 @@ public class Date implements Comparable<Date> {
         System.out.println("test 8");
         Date test8 = new Date("2/29/2020");
         if (!test8.isValid()) System.out.println("test 8 failed");
-        else System.out.println("test 11 passed");
+        else System.out.println("test 8 passed");
 
         //Test 9: 28 days in february when non leapyear
         System.out.println("test 9");
         Date test9 = new Date("2/29/2021");
         if (test9.isValid()) System.out.println("test 9 failed");
         else System.out.println("test 9 passed");
+
+        //Test 10: Testing regular day
+        System.out.println("test 10");
+        Date test10 = new Date("2/20/2021");
+        if (!test10.isValid()) System.out.println("test 10 failed");
+        else System.out.println("test 10 passed");
 
     }
 }

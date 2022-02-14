@@ -3,7 +3,9 @@ package patientdatabase;
 /**
  * Class that stores Appointment objects within an array
  *
- *
+ * Within this class are functions to find appointments, find patient,
+ * add and remove an appointment or all appointments based on patient,
+ * and print by appointment sorted or unsorted.
  * @author Mark Holleran, Abhitej Bokka
  */
 
