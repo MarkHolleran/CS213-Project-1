@@ -24,7 +24,6 @@ public class Time implements Comparable<Time>{
 
         this.hour = hour;
         this.minute = minute;
-
     }
 
     /**
@@ -42,7 +41,6 @@ public class Time implements Comparable<Time>{
 
         this.hour = Integer.parseInt(segmentedTime.nextToken());
         this.minute = Integer.parseUnsignedInt((segmentedTime.nextToken()));
-
     }
 
     /**
@@ -51,14 +49,17 @@ public class Time implements Comparable<Time>{
      * @return Integer value representing Hour
      */
     public int getHour(){
+
         return hour;
     }
+
     /**
      * Returns Minute from Time object
      *
      * @return Integer value representing Minute
      */
     public int getMinute(){
+
         return minute;
     }
 
@@ -70,6 +71,7 @@ public class Time implements Comparable<Time>{
      * @return true or false based on Time validity
      */
     public boolean isValid(){
+
         if (hour < 9 || hour > 16 || minute % 15 != 0 || minute < 0 || minute > 45){
             return false;
         }
@@ -85,6 +87,7 @@ public class Time implements Comparable<Time>{
      */
     @Override
     public String toString(){
+
         if(minute == 0){
             return hour + ":0" + minute;
         }else{
@@ -108,6 +111,7 @@ public class Time implements Comparable<Time>{
      */
     @Override
     public int compareTo(Time time){
+
         int hourDifference = Integer.compare(this.hour, time.hour);
         if (hourDifference != 0) {
             return hourDifference;
@@ -116,5 +120,4 @@ public class Time implements Comparable<Time>{
         int minDifference = Integer.compare(this.minute, time.minute);
         return minDifference;
     }
-
 }
