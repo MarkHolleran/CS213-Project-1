@@ -125,7 +125,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime1a = new Time("12:30");
         Date testdate1a = new Date("4/20/2020");
         Timeslot testslot1a = new Timeslot(testdate1a,testtime1a);
-
         Time testtime1b = new Time("12:30");
         Date testdate1b = new Date("4/20/2020");
         Timeslot testslot1b = new Timeslot(testdate1b,testtime1b);
@@ -138,7 +137,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime2a = new Time("12:30");
         Date testdate2a = new Date("4/20/2020");
         Timeslot testslot2a = new Timeslot(testdate2a,testtime2a);
-
         Time testtime2b = new Time("15:30");
         Date testdate2b = new Date("4/20/2020");
         Timeslot testslot2b = new Timeslot(testdate2b,testtime2b);
@@ -151,7 +149,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime3a = new Time("17:30");
         Date testdate3a = new Date("4/20/2020");
         Timeslot testslot3a = new Timeslot(testdate3a,testtime3a);
-
         Time testtime3b = new Time("15:30");
         Date testdate3b = new Date("4/20/2020");
         Timeslot testslot3b = new Timeslot(testdate3b,testtime3b);
@@ -164,7 +161,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime4a = new Time("17:30");
         Date testdate4a = new Date("3/20/2020");
         Timeslot testslot4a = new Timeslot(testdate4a,testtime4a);
-
         Time testtime4b = new Time("17:30");
         Date testdate4b = new Date("4/20/2020");
         Timeslot testslot4b = new Timeslot(testdate4b,testtime4b);
@@ -177,7 +173,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime5a = new Time("17:30");
         Date testdate5a = new Date("5/20/2020");
         Timeslot testslot5a = new Timeslot(testdate5a,testtime5a);
-
         Time testtime5b = new Time("17:30");
         Date testdate5b = new Date("4/20/2020");
         Timeslot testslot5b = new Timeslot(testdate5b,testtime5b);
@@ -190,7 +185,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime6a = new Time("17:30");
         Date testdate6a = new Date("3/20/2020");
         Timeslot testslot6a = new Timeslot(testdate6a,testtime6a);
-
         Time testtime6b = new Time("15:30");
         Date testdate6b = new Date("4/20/2020");
         Timeslot testslot6b = new Timeslot(testdate6b,testtime6b);
@@ -203,7 +197,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime7a = new Time("15:30");
         Date testdate7a = new Date("4/20/2020");
         Timeslot testslot7a = new Timeslot(testdate7a,testtime7a);
-
         Time testtime7b = new Time("17:30");
         Date testdate7b = new Date("3/20/2020");
         Timeslot testslot7b = new Timeslot(testdate7b,testtime7b);
@@ -216,7 +209,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime8a = new Time("17:30");
         Date testdate8a = new Date("2/29/2020");
         Timeslot testslot8a = new Timeslot(testdate8a,testtime8a);
-
         Time testtime8b = new Time("17:30");
         Date testdate8b = new Date("2/20/2020");
         Timeslot testslot8b = new Timeslot(testdate8b,testtime8b);
@@ -229,7 +221,6 @@ public class Timeslot implements Comparable<Timeslot>{
         Time testtime9a = new Time("16:30");
         Date testdate9a = new Date("2/28/2022");
         Timeslot testslot9a = new Timeslot(testdate9a,testtime9a);
-
         Time testtime9b = new Time("17:30");
         Date testdate9b = new Date("12/31/2020");
         Timeslot testslot9b = new Timeslot(testdate9b,testtime9b);

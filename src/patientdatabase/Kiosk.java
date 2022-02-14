@@ -123,7 +123,6 @@ public class Kiosk {
         }
     }
 
-
     /**
      * Creates Patient given the separated strings and the location.
      *
@@ -320,8 +319,6 @@ public class Kiosk {
                 break;
         }
     }
-
-
 
     /**
      * Runs command line text based interface

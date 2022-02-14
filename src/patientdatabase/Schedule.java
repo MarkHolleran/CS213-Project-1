@@ -108,7 +108,6 @@ public class Schedule {
 
     }
 
-
     /**
      *
      * @param appt Appointment object 
@@ -118,13 +117,11 @@ public class Schedule {
 
         Date currentDate = new Date();
 
-
         if (!appt.getPatient().getDob().isValid()){
 
             return "Invalid date of birth!";
 
         }else
-
 
             if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
 
@@ -238,7 +235,6 @@ public class Schedule {
         return true;
     }
 
-
     /**
      * Prints an Appointment's data to the commandline
      *
@@ -250,7 +246,6 @@ public class Schedule {
             System.out.println(this.appointments[i].toString());
         }
     }
-    //maintains relative order of the appointments in the list after deletion
 
     /**
      * Prints each Appointment object within an array of Appointment objects by zipcode
@@ -324,7 +319,3 @@ public class Schedule {
     }
 
 }
-
-
-
-
