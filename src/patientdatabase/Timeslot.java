@@ -120,25 +120,122 @@ public class Timeslot implements Comparable<Timeslot>{
      */
     public static void main(String[] args){
 
-        //Test 1:
+        //Test 1: The method will return 0 if the TimeSlots are the same
         System.out.println("test 1");
-        Time testtime1 = new Time("12:30");
-        Date testdate1 = new Date("4/20/2020");
-        Timeslot testslot = new Timeslot(testdate1,testtime1);
+        Time testtime1a = new Time("12:30");
+        Date testdate1a = new Date("4/20/2020");
+        Timeslot testslot1a = new Timeslot(testdate1a,testtime1a);
 
+        Time testtime1b = new Time("12:30");
+        Date testdate1b = new Date("4/20/2020");
+        Timeslot testslot1b = new Timeslot(testdate1b,testtime1b);
 
+        if(testslot1a.compareTo(testslot1b) == 0) System.out.println("test 1 passed");
+        else System.out.println("test 1 failed");
 
+        //Test 2: First time slot with an earlier hour than second time slot.
+        System.out.println("test 2");
+        Time testtime2a = new Time("12:30");
+        Date testdate2a = new Date("4/20/2020");
+        Timeslot testslot2a = new Timeslot(testdate2a,testtime2a);
 
-        //Test 2:
-        //Test 3:
-        //Test 4:
-        //Test 5:
-        //Test 6:
-        //Test 7:
-        //Test 8:
-        //Test 9:
-        //Test 10:
-        //Test 11:
+        Time testtime2b = new Time("15:30");
+        Date testdate2b = new Date("4/20/2020");
+        Timeslot testslot2b = new Timeslot(testdate2b,testtime2b);
+
+        if(testslot2a.compareTo(testslot2b) == -1) System.out.println("test 2 passed");
+        else System.out.println("test 2 failed");
+
+        //Test 3: First time slot with a later hour than second time slot will return 1
+        System.out.println("test 3");
+        Time testtime3a = new Time("17:30");
+        Date testdate3a = new Date("4/20/2020");
+        Timeslot testslot3a = new Timeslot(testdate3a,testtime3a);
+
+        Time testtime3b = new Time("15:30");
+        Date testdate3b = new Date("4/20/2020");
+        Timeslot testslot3b = new Timeslot(testdate3b,testtime3b);
+
+        if(testslot3a.compareTo(testslot3b) == 1) System.out.println("test 3 passed");
+        else System.out.println("test 3 failed");
+
+        //Test 4: First time slot with an earlier date than second time slot but with same time will return -1
+        System.out.println("test 4");
+        Time testtime4a = new Time("17:30");
+        Date testdate4a = new Date("3/20/2020");
+        Timeslot testslot4a = new Timeslot(testdate4a,testtime4a);
+
+        Time testtime4b = new Time("17:30");
+        Date testdate4b = new Date("4/20/2020");
+        Timeslot testslot4b = new Timeslot(testdate4b,testtime4b);
+
+        if(testslot4a.compareTo(testslot4b) == -1) System.out.println("test 4 passed");
+        else System.out.println("test 4 failed");
+
+        //Test 5: First time slot with an later date than second time slot but with same time will return 1
+        System.out.println("test 5");
+        Time testtime5a = new Time("17:30");
+        Date testdate5a = new Date("5/20/2020");
+        Timeslot testslot5a = new Timeslot(testdate5a,testtime5a);
+
+        Time testtime5b = new Time("17:30");
+        Date testdate5b = new Date("4/20/2020");
+        Timeslot testslot5b = new Timeslot(testdate5b,testtime5b);
+
+        if(testslot5a.compareTo(testslot5b) == 1) System.out.println("test 5 passed");
+        else System.out.println("test 5 failed");
+
+        //Test 6: First time slot with an earlier date than second time slot but later time will return -1
+        System.out.println("test 6");
+        Time testtime6a = new Time("17:30");
+        Date testdate6a = new Date("3/20/2020");
+        Timeslot testslot6a = new Timeslot(testdate6a,testtime6a);
+
+        Time testtime6b = new Time("15:30");
+        Date testdate6b = new Date("4/20/2020");
+        Timeslot testslot6b = new Timeslot(testdate6b,testtime6b);
+
+        if(testslot6a.compareTo(testslot6b) == -1) System.out.println("test 6 passed");
+        else System.out.println("test 6 failed");
+
+        //Test 7: First time slot with an later date than second time slot but earlier time will return 1
+        System.out.println("test 7");
+        Time testtime7a = new Time("15:30");
+        Date testdate7a = new Date("4/20/2020");
+        Timeslot testslot7a = new Timeslot(testdate7a,testtime7a);
+
+        Time testtime7b = new Time("17:30");
+        Date testdate7b = new Date("3/20/2020");
+        Timeslot testslot7b = new Timeslot(testdate7b,testtime7b);
+
+        if(testslot7a.compareTo(testslot7b) == 1) System.out.println("test 7 passed");
+        else System.out.println("test 7 failed");
+
+        //Test 8: First time slot with an later date than second time slot but earlier time will return 1
+        System.out.println("test 8");
+        Time testtime8a = new Time("17:30");
+        Date testdate8a = new Date("2/29/2020");
+        Timeslot testslot8a = new Timeslot(testdate8a,testtime8a);
+
+        Time testtime8b = new Time("17:30");
+        Date testdate8b = new Date("2/20/2020");
+        Timeslot testslot8b = new Timeslot(testdate8b,testtime8b);
+
+        if(testslot8a.compareTo(testslot8b) == 1) System.out.println("test 8 passed");
+        else System.out.println("test 8 failed");
+
+        //Test 9: First time slot with an later date than second time slot but earlier time will return 1
+        System.out.println("test 9");
+        Time testtime9a = new Time("16:30");
+        Date testdate9a = new Date("2/28/2022");
+        Timeslot testslot9a = new Timeslot(testdate9a,testtime9a);
+
+        Time testtime9b = new Time("17:30");
+        Date testdate9b = new Date("12/31/2020");
+        Timeslot testslot9b = new Timeslot(testdate9b,testtime9b);
+
+        if(testslot9a.compareTo(testslot9b) == 1) System.out.println("test 9 passed");
+        else System.out.println("test 9 failed");
 
     }
 
