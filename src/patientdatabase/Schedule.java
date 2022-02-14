@@ -1,31 +1,19 @@
 package patientdatabase;
 
 /**
- * Class that stores an array of Appointments
+ * Class that stores Appointment objects within an array
  *
- * Within this class are functions to find appointments, find patient,
- * add and remove an appointment or all appointments based on patient,
- * and print by appointment sorted or unsorted.
+ *
  * @author Mark Holleran, Abhitej Bokka
  */
 
 public class Schedule {
 
-    private static final int NOT_FOUND = -1;
-
+    public static final int NOT_FOUND = -1;
 
     private Appointment  [] appointments;
     private int numAppts;
 
-
-    /**
-     * Creates a new Schedule
-     *
-     * A Schedule consists of an array of Appointment objects
-     * that has a default size of 4 as well as the current
-     * number of Appointment objects within the array
-     * as well as the number of appointments.
-     */
     public Schedule() {
 
         this.appointments = new Appointment[4];
@@ -34,15 +22,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Attempts to find a specified Appointment Object
-     * within an array of Appointments
-     * Returns Index of where the Appointment is if found
-     *
-     * @param apt Appointment object that will be searched for
-     * @return Index Integer value of where the Appointment object
-     * is found within the array
-     */
     private int find(Appointment apt){
 
         for(int i = 0; i < numAppts; i++){
@@ -59,15 +38,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Attempts to find a specified Appointment
-     * object within an array of Appointments
-     * Returns True if found, false otherwise
-     *
-     * @param apt Appointment object that will be searched for
-     * @return True if Appointment object exists within
-     * an array or false if it does not exist
-     */
     public boolean findApt(Appointment apt){
 
         for(int i = 0; i < numAppts; i++){
@@ -84,14 +54,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Attempts to find a specified Patient
-     * object within an array of Appointments
-     * Returns true if found, false otherwise
-     *
-     * @param patient Patient object that will be searched for
-     * @return True if Patient object is found
-     */
     public boolean findPatient(Patient patient){
 
         for(int i = 0; i < numAppts; i++){
@@ -108,10 +70,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Increases array length of Appointment array by 4
-     * once the array is full
-     */
     private void grow() {
 
         int resizedLength = appointments.length+4;
@@ -127,15 +85,6 @@ public class Schedule {
 
     }
 
-    /**
-     * Uses the find() function to validate if
-     * the Appointment object to be added is unique
-     * within the array or if it already exists
-     * Returns true if doesn't exist, false otherwise
-     *
-     * @param appt Appointment object to be added to array
-     * @return True if Appointment is added, false if it already exists
-     */
     public boolean add(Appointment appt){
 
         if(find(appt) != NOT_FOUND){
@@ -160,8 +109,8 @@ public class Schedule {
 
     /**
      *
-     * @param appt Appointment object to be tested for validity
-     * @return String noting what is or is not wrong with an Appointment object
+     * @param appt Appointment object 
+     * @return
      */
     public String isValid(Appointment appt){
 
@@ -175,7 +124,7 @@ public class Schedule {
         }else
 
 
-        if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
+            if (appt.getPatient().getDob().compareTo(currentDate) >= 0){
 
             return "Date of birth invalid -> it is a future date.";
 
@@ -201,7 +150,7 @@ public class Schedule {
 
             if(appointments[i].getLocation().equals(appt.getLocation())
 
-                    && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
+                && appointments[i].getSlot().compareTo(appt.getSlot()) == 0){
 
                 return "Time slot has been taken at this location.";
 
@@ -213,7 +162,7 @@ public class Schedule {
 
             if(appointments[i].getSlot().getDate().compareTo(appt.getSlot().getDate()) == 0 &&
 
-                    appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
+                appointments[i].getPatient().compareTo(appt.getPatient()) == 0){
 
                 return "Same patient cannot book an appointment with the same date.";
 
@@ -299,6 +248,7 @@ public class Schedule {
             System.out.println(this.appointments[i].toString());
         }
     }
+    //maintains relative order of the appointments in the list after deletion
 
     /**
      * Prints each Appointment object within an array of Appointment objects by zipcode
@@ -372,4 +322,7 @@ public class Schedule {
     }
 
 }
+
+
+
 
